@@ -4,8 +4,8 @@
 
 UltraPad is a modern and unofficial replacement for WordPad, written in C#. It is free and open source, and aims to provide almost the same functionality as its predecessor, with a fresh and updated look.
 
-![UltraPad Screenshot](https://github.com/lkt27/WordPad11/blob/main/preview_dark.png)
-![UltraPad Screenshot](https://github.com/lkt27/WordPad11/blob/main/preview_light.png)
+![UltraPad Screenshot](https://github.com/Lixkote/WordPad11/blob/main/preview_dark.png)
+![UltraPad Screenshot](https://github.com/Lixkote/WordPad11/blob/main/preview_light.png)
 
 ## Features
 - Standard WordPad features, such as basic text operations and inserting various multimedia items.
