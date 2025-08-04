@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="aboutapp.Text" xml:space="preserve">
+    <value>Uygulama hakkında</value>
+  </data>
+  <data name="addspace.Content" xml:space="preserve">
+    <value>Paragraflardan sonra 10nk boşluk ekle</value>
+  </data>
+  <data name="align.Text" xml:space="preserve">
+    <value>Hizala</value>
+  </data>
+  <data name="alignm.Text" xml:space="preserve">
+    <value>Hizalama:</value>
+  </data>
+  <data name="appearance.Text" xml:space="preserve">
+    <value>Görünüm</value>
+  </data>
+  <data name="apptheme.Text" xml:space="preserve">
+    <value>Uygulama teması</value>
+  </data>
+  <data name="apptitle.Text" xml:space="preserve">
+    <value>Belge - RectifyPad</value>
+  </data>
+  <data name="bottr.Text" xml:space="preserve">
+    <value>Alt:</value>
+  </data>
+  <data name="copy.Text" xml:space="preserve">
+    <value>Kopyala</value>
+  </data>
+  <data name="copyrighttext.Text" xml:space="preserve">
+    <value>© 2025 Lixkote. Tüm hakları saklıdır.</value>
+  </data>
+  <data name="EditingFindBox.Text" xml:space="preserve">
+    <value>Bul</value>
+  </data>
+  <data name="EditingReplaceBox.Text" xml:space="preserve">
+    <value>Tümünü Değiştir</value>
+  </data>
+  <data name="EditingSelAllBox.Text" xml:space="preserve">
+    <value>Tümünü Seç</value>
+  </data>
+  <data name="EditingText.Text" xml:space="preserve">
+    <value>Düzenleme</value>
+  </data>
+  <data name="feedback.Content" xml:space="preserve">
+    <value>Geri bildirim gönder</value>
+  </data>
+  <data name="filemenuitem.Title" xml:space="preserve">
+    <value>Dosya</value>
+  </data>
+  <data name="fli.Text" xml:space="preserve">
+    <value>İlk satır:</value>
+  </data>
+  <data name="FontToolbarTitle.Text" xml:space="preserve">
+    <value>Yazı Tipi</value>
+  </data>
+  <data name="insertbox.Text" xml:space="preserve">
+    <value>Ekle</value>
+  </data>
+  <data name="InsertObjectDialog.Title" xml:space="preserve">
+    <value>Nesne ekle</value>
+  </data>
+  <data name="lefti.Text" xml:space="preserve">
+    <value>Sol:</value>
+  </data>
+  <data name="lefttr.Text" xml:space="preserve">
+    <value>Sol:</value>
+  </data>
+  <data name="linespacing.Text" xml:space="preserve">
+    <value>Satır aralığı:</value>
+  </data>
+  <data name="marginsnametr.Text" xml:space="preserve">
+    <value>Kenar boşlukları (birim)</value>
+  </data>
+  <data name="new.Text" xml:space="preserve">
+    <value>Yeni</value>
+  </data>
+  <data name="openmenuitem.Text" xml:space="preserve">
+    <value>Aç</value>
+  </data>
+  <data name="orientation.Text" xml:space="preserve">
+    <value>Yönlendirme</value>
+  </data>
+  <data name="packageversiontext.Text" xml:space="preserve">
+    <value>RectifyPad 11.2311.1</value>
+  </data>
+  <data name="pagesetupdialog.SecondaryButtonText" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="pagesetupdialog.Title" xml:space="preserve">
+    <value>Sayfa Yapısı</value>
+  </data>
+  <data name="paintpicture.Content" xml:space="preserve">
+    <value>Resim çiz</value>
+  </data>
+  <data name="paper.Text" xml:space="preserve">
+    <value>Kağıt</value>
+  </data>
+  <data name="paradialog.CloseButtonText" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="paradialog.PrimaryButtonText" xml:space="preserve">
+    <value>Sekmeler...</value>
+  </data>
+  <data name="paradialog.SecondaryButtonText" xml:space="preserve">
+    <value>Tamam</value>
+  </data>
+  <data name="paradialog.Title" xml:space="preserve">
+    <value>Paragraf</value>
+  </data>
+  <data name="paste.Text" xml:space="preserve">
+    <value>Yapıştır</value>
+  </data>
+  <data name="pgset.Text" xml:space="preserve">
+    <value>Sayfa Yapısı</value>
+  </data>
+  <data name="printmfsi.Text" xml:space="preserve">
+    <value>Yazdır</value>
+  </data>
+  <data name="printpageTR.Content" xml:space="preserve">
+    <value>Sayfa Numaralarını Yazdır</value>
+  </data>
+  <data name="recentmenuitem.Text" xml:space="preserve">
+    <value>Son Kullanılanlar</value>
+  </data>
+  <data name="righti.Text" xml:space="preserve">
+    <value>Sağ:</value>
+  </data>
+  <data name="righttr.Text" xml:space="preserve">
+    <value>Sağ:</value>
+  </data>
+  <data name="ruler.Text" xml:space="preserve">
+    <value>Cetvel</value>
+  </data>
+  <data name="saveasmenuitem.Text" xml:space="preserve">
+    <value>Farklı kaydet</value>
+  </data>
+  <data name="savemenuitem.Text" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="selappthem.Text" xml:space="preserve">
+    <value>Görüntülenecek uygulama temasını seçin</value>
+  </data>
+  <data name="settings.Text" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="size.Text" xml:space="preserve">
+    <value>Boyut</value>
+  </data>
+  <data name="spacing.Text" xml:space="preserve">
+    <value>Aralık</value>
+  </data>
+  <data name="srccode.Text" xml:space="preserve">
+    <value>Kaynak Kodu</value>
+  </data>
+  <data name="statusbar.Text" xml:space="preserve">
+    <value>Durum çubuğu</value>
+  </data>
+  <data name="tableitemtr.Content" xml:space="preserve">
+    <value>Tablo ekle</value>
+  </data>
+  <data name="TooltipDateTime.Content" xml:space="preserve">
+    <value>Tarih ve saat</value>
+  </data>
+  <data name="TooltipObject.Content" xml:space="preserve">
+    <value>Nesne ekle</value>
+  </data>
+  <data name="TooltipPaint.Content" xml:space="preserve">
+    <value>Paint çizimi</value>
+  </data>
+  <data name="TooltipPicture.Content" xml:space="preserve">
+    <value>Resim</value>
+  </data>
+  <data name="toptr.Text" xml:space="preserve">
+    <value>Üst:</value>
+  </data>
+  <data name="view.Title" xml:space="preserve">
+    <value>Görünüm</value>
+  </data>
+  <data name="edit.Title" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="TitlePara.Text" xml:space="preserve">
+    <value>Paragraf</value>
+  </data>
+  <data name="landscape.Content" xml:space="preserve">
+    <value>Yatay</value>
+  </data>
+  <data name="portrait.Content" xml:space="preserve">
+    <value>Dikey</value>
+  </data>
+  <data name="printpreview.Text" xml:space="preserve">
+    <value>Baskı önizleme</value>
+  </data>
+  <data name="qprint.Text" xml:space="preserve">
+    <value>Hızlı yazdır</value>
+  </data>
+  <data name="redobuttontoolbar.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Yinele</value>
+  </data>
+  <data name="saveasdocx.Text" xml:space="preserve">
+    <value>Office Open XML belgesi</value>
+  </data>
+  <data name="saveasrtf.Text" xml:space="preserve">
+    <value>Zengin Metin belgesi</value>
+    <comment>Save the document in the Rich Text Format</comment>
+  </data>
+  <data name="savebutton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Kaydet (Ctrl+S)</value>
+  </data>
+  <data name="sharebuttonmenu.Text" xml:space="preserve">
+    <value>Paylaş</value>
+  </data>
+  <data name="sharebuttontoolbar.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Paylaş</value>
+  </data>
+  <data name="toolbarsetbutton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="undobuttontoolbar.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Geri Al</value>
+  </data>
+  <data name="saveasodt.Text" xml:space="preserve">
+    <value>OpenDocument metni</value>
+  </data>
+  <data name="saveastxt.Text" xml:space="preserve">
+    <value>Düz metin belgesi</value>
+  </data>
+  <data name="saveasother.Text" xml:space="preserve">
+    <value>Diğer biçimler</value>
+  </data>
+  <data name="closebuttonmenu.Text" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="autocorrect.Text" xml:space="preserve">
+    <value>Otomatik Düzeltme</value>
+  </data>
+  <data name="autocorrecttext.Text" xml:space="preserve">
+    <value>Yazım denetimi açıkken yazım hataları otomatik olarak düzeltilir</value>
+  </data>
+  <data name="spellcheckset.Text" xml:space="preserve">
+    <value>Yazım denetimi</value>
+  </data>
+  <data name="darkeditor.Text" xml:space="preserve">
+    <value>Düzenleyici karanlık modu</value>
+  </data>
+  <data name="darkeditortext.Text" xml:space="preserve">
+    <value>Deneysel özellik - Düzenleyici bölümünde karanlık modu etkinleştirir. Bu ayar açıkken yazdırma mümkün değildir.</value>
+  </data>
+  <data name="spell.Text" xml:space="preserve">
+    <value>Yazım</value>
+  </data>
+  <data name="measurement.Text" xml:space="preserve">
+    <value>Ölçüm</value>
+  </data>
+  <data name="words.Text" xml:space="preserve">
+    <value>Kelimeler</value>
+  </data>
+  <data name="measurementunits.Text" xml:space="preserve">
+    <value>Ölçü birimleri</value>
+  </data>
+  <data name="sysradio.Content" xml:space="preserve">
+    <value>Sistem teması</value>
+  </data>
+  <data name="lightradio.Content" xml:space="preserve">
+    <value>Açık</value>
+  </data>
+  <data name="darkradio.Content" xml:space="preserve">
+    <value>Karanlık</value>
+  </data>
+  <data name="measurementunitstext.Text" xml:space="preserve">
+    <value>Cetvel ve sayfa yapısı için ölçü birimlerini seçin.</value>
+  </data>
+  <data name="inches.Content" xml:space="preserve">
+    <value>İnç</value>
+  </data>
+  <data name="centimeters.Content" xml:space="preserve">
+    <value>Santimetre</value>
+  </data>
+  <data name="points.Content" xml:space="preserve">
+    <value>Punto</value>
+  </data>
+  <data name="picas.Content" xml:space="preserve">
+    <value>Pika</value>
+  </data>
+  <data name="wrapruler.Content" xml:space="preserve">
+    <value>Cetvele göre kaydır</value>
+  </data>
+  <data name="nowrap.Content" xml:space="preserve">
+    <value>Kaydırma yok</value>
+  </data>
+  <data name="wrapwindow.Content" xml:space="preserve">
+    <value>Pencereye göre kaydır</value>
+  </data>
+  <data name="wordwraptext.Text" xml:space="preserve">
+    <value>Metnin ekranda görüntülenme şeklini değiştirmek için bir satır kaydırma seçeneği belirleyin. Bu, belgenin yazdırıldığındaki görünümünü etkilemez.</value>
+  </data>
+  <data name="notimplement1.Text" xml:space="preserve">
+    <value>Bu özellik henüz mevcut değil.</value>
+  </data>
+  <data name="notimplement2.Text" xml:space="preserve">
+    <value>İsterseniz, GitHub'da bir pull request yaparak uygulanmasına yardımcı olabilirsiniz.</value>
+  </data>
+  <data name="notimplementdialog.Title" xml:space="preserve">
+    <value>🚫 Üzgünüz, bunu henüz yapamıyoruz</value>
+  </data>
+  <data name="tabsclear.Content" xml:space="preserve">
+    <value>Temizle</value>
+  </data>
+  <data name="tabsclearall.Content" xml:space="preserve">
+    <value>Tümünü temizle</value>
+  </data>
+  <data name="tabsdialog.CloseButtonText" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="tabsdialog.Title" xml:space="preserve">
+    <value>Sekmeler</value>
+  </data>
+  <data name="tabsset.Content" xml:space="preserve">
+    <value>Ayarla</value>
+  </data>
+  <data name="tabstopposition.Text" xml:space="preserve">
+    <value>Sekme durağı konumu</value>
+  </data>
+  <data name="automatical.Text" xml:space="preserve">
+    <value>Otomatik</value>
+  </data>
+  <data name="morecolors.Text" xml:space="preserve">
+    <value>Daha fazla renk...</value>
+  </data>
+  <data name="marginsnamecm.Text" xml:space="preserve">
+    <value>Kenar boşlukları (santimetre)</value>
+  </data>
+  <data name="marginsnameinch.Text" xml:space="preserve">
+    <value>Kenar boşlukları (inç)</value>
+  </data>
+  <data name="marginsnamepicas.Text" xml:space="preserve">
+    <value>Kenar boşlukları (pika)</value>
+  </data>
+  <data name="marginsnamept.Text" xml:space="preserve">
+    <value>Kenar boşlukları (punto)</value>
+  </data>
+  <data name="githubtext.Text" xml:space="preserve">
+    <value>Rectify11 ve RectifyPad'e nasıl katkıda bulunabileceğinizi öğrenmek için, <LineBreak/>projeleri <Hyperlink NavigateUri="https://github.com/Rectify11" TextDecorations="None">GitHub</Hyperlink> sayfasından inceleyin</value>
+  </data>
+  <data name="MenuResizePicture.Text" xml:space="preserve">
+    <value>Resmi yeniden boyutlandır</value>
+  </data>
+  <data name="MenuChangePicture.Text" xml:space="preserve">
+    <value>Resmi değiştir</value>
+  </data>
+  <data name="menupicture.Text" xml:space="preserve">
+    <value>Resim</value>
+  </data>
+  <data name="donatebutton.Content" xml:space="preserve">
+    <value>Bağış Yap</value>
+  </data>
+  <data name="wordwrap.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="cut.Text" xml:space="preserve">
+    <value>Kes</value>
+  </data>
+  <data name="indentation.Text" xml:space="preserve">
+    <value>Girinti</value>
+  </data>
+  <data name="lists.Text" xml:space="preserve">
+    <value>Listeler</value>
+  </data>
+  <data name="paragr.Text" xml:space="preserve">
+    <value>Paragraf</value>
+  </data>
+</root>
