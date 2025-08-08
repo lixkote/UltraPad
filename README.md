@@ -14,7 +14,7 @@ UltraPad is a modern and unofficial replacement for WordPad, written in C#. It i
 
 ## Compilation
 To compile UltraPad, you will need the following prerequisites:
-- A computer running Windows 11, build 22000 or newer.
+- A computer running Windows 11, build 22000 or newer. **LTSC versions of Windows are not supported, and never will be.**
 - The latest version of [Visual Studio](https://developer.microsoft.com/en-us/windows/downloads) (the free community edition is sufficient).
   - The "Universal Windows Platform Development" workload installed.
   - The latest Windows 11 SDK and Windows 10 SDKs installed.
