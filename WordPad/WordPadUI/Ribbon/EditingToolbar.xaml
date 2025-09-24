@@ -84,7 +84,7 @@
     Grid.Row="0" HorizontalAlignment="Stretch" Click="FindButton_Click" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="8,0,0,0" VerticalContentAlignment="Stretch">
                 <muxc:DropDownButton.Content>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xE11A;" VerticalAlignment="Center" ></TextBlock>
+                        <TextBlock Text="&#xE11A;"                       FontFamily="{StaticResource SegoeFluentIcons}" VerticalAlignment="Center" ></TextBlock>
                         <TextBlock x:Uid="EditingFindBox" HorizontalAlignment="Left" Margin="5,1,0,0" TextWrapping="Wrap" FontFamily="Segoe UI Variable Display" FontSize="14"/>
                     </StackPanel>
                 </muxc:DropDownButton.Content>

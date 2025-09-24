@@ -35,7 +35,7 @@
                      Height="15" FontSize="10" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0,42,0,0">
                 <Button.Content>
                     <Grid>
-                        <TextBlock FontFamily="Segoe Fluent Icons" Text="" FontSize="9" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock FontFamily="{StaticResource SegoeFluentIcons}" Text="" FontSize="9" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </Button.Content>
                 <Button.Flyout>

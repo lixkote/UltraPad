@@ -100,13 +100,13 @@
                                     <StackPanel Grid.Column="1" Margin="{StaticResource ContentLeftNormalSpacing}" VerticalAlignment="Center">
                                         <TextBlock Style="{ThemeResource BodyTextBlockStyle}" x:Uid="apptheme" Text="App theme" />
                                         <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" x:Uid="selappthem" FontWeight="SemiLight" Text="Select which app theme to display" TextWrapping="WrapWholeWords" />
-                                        <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Visibility="Collapsed" FontWeight="SemiLight" Text="Only System theme supported right now" TextWrapping="WrapWholeWords"/>
+                                        <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" FontWeight="SemiLight" Text="Only system theme supported in the UWP version" TextWrapping="WrapWholeWords"/>
                                     </StackPanel>
                                 </Grid>
                             </muxc:Expander.Header>
                             <muxc:RadioButtons x:Name="radiocontainer" Margin="{StaticResource ContentLeftWideSpacing}">
-                                <RadioButton x:Name="LightRadio" x:Uid="lightradio" GroupName="t" Margin="{StaticResource ContentBottomNormalSpacing}" Content="Light" Tag="Light" Checked="RadioButton_Checked"/>
-                                <RadioButton x:Name="DarkRadio"  x:Uid="darkradio" GroupName="t" Margin="{StaticResource ContentBottomNormalSpacing}" Content="Dark" Tag="Dark" Checked="RadioButton_Checked"/>
+                                <RadioButton x:Name="LightRadio" IsEnabled="False" x:Uid="lightradio" GroupName="t" Margin="{StaticResource ContentBottomNormalSpacing}" Content="Light" Tag="Light" Checked="RadioButton_Checked"/>
+                                <RadioButton x:Name="DarkRadio" IsEnabled="False"  x:Uid="darkradio" GroupName="t" Margin="{StaticResource ContentBottomNormalSpacing}" Content="Dark" Tag="Dark" Checked="RadioButton_Checked"/>
                                 <RadioButton x:Name="SysRadio" x:Uid="sysradio" GroupName="t" Margin="{StaticResource ContentBottomNormalSpacing}" Content="System theme" Tag="System" Checked="RadioButton_Checked"/>
                             </muxc:RadioButtons>
                         </muxc:Expander>
@@ -195,7 +195,7 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="156"/>
                             </Grid.ColumnDefinitions>
-                            <FontIcon x:Name="AurocorrectIcon" VerticalAlignment="Center" Glyph="" Height="20"  />
+                            <FontIcon x:Name="AurocorrectIcon" FontFamily="/Assets/Segoe Fluent Icons.ttf#Segoe Fluent Icons" VerticalAlignment="Center" Glyph="" Height="20"  />
                             <StackPanel Grid.Column="1"  VerticalAlignment="Center" Grid.ColumnSpan="2">
                                 <TextBlock Style="{ThemeResource BodyTextBlockStyle}" x:Uid="autocorrect" Text="Aurocorrect" />
                                 <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" x:Uid="autocorrecttext" FontWeight="SemiLight" Text="Typos are automatically corrected when spell check is turned on" TextWrapping="WrapWholeWords" />
@@ -207,7 +207,7 @@
                         <TextBlock Style="{StaticResource SectionHeader}" x:Uid="aboutapp" Text="About this app"/>
                         <TextBlock x:Name="PackageVersionText" IsTextSelectionEnabled="True" Text="RectifyPad 11.2502.100.0"/>
                         <TextBlock x:Uid="copyrighttext" x:Name="CopyrightText" Margin="{StaticResource ContentBottomWideSpacing}" Text="© 2025 Lixkote. All rights reserved."/>
-                        <HyperlinkButton  Margin="{StaticResource HyperlinkButtonMargin}" NavigateUri="https://github.com/Lixkote/RectifyPad" >
+                        <HyperlinkButton  Margin="{StaticResource HyperlinkButtonMargin}" NavigateUri="https://github.com/Lixkote/UltraPad" >
                             <TextBlock x:Uid="srccode" Text="Source Code"/>
                         </HyperlinkButton>
 
@@ -216,11 +216,11 @@
                         <TextBlock Visibility="Collapsed" x:Name="GithubText" Margin="0,15,0,40">
                             To learn how you can contribute to Rectify11 and RectifyPad,  <LineBreak/>check out the projects on their <Hyperlink NavigateUri="https://github.com/Rectify11" TextDecorations="None"> GitHub</Hyperlink> page
                         </TextBlock>
-                        <TextBlock  x:Name="GithubText_Kopiuj">If you consider this project useful or helpful for your daily use,<LineBreak></LineBreak>please consider donating to support the development of <LineBreak></LineBreak>new features, bugfixes for this, and another projects on my GitHub Page.</TextBlock>
+                        <TextBlock  x:Name="GithubText_Kopiuj" Margin="0,39.7,0,0">If you consider this project useful or helpful for your daily use,<LineBreak></LineBreak>please consider donating to support the development of <LineBreak></LineBreak>new features, bugfixes for this, and another projects on my GitHub Page.</TextBlock>
 
-                        <Button x:Name="donatebutton" x:Uid="donatebutton" Click="donatebutton_Click" Margin="0,10,0,0" />
+                        <Button x:Name="donatebutton" x:Uid="donatebutton" Style="{StaticResource AccentButtonStyle}" Click="donatebutton_Click" Margin="0,10,0,0" />
                     </StackPanel>
-                    <Button Style="{StaticResource MenuButton}" x:Name="BackButton" Click="BackButton_Click" Content="&#xE0A6;" Margin="-55,23,0,0" VerticalAlignment="Top" Height="35" Width="44" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualSecondaryBrush="{x:Null}" FontFamily="Segoe Fluent Icons" FontSize="16"/>
+                    <Button Style="{StaticResource MenuButton}" x:Name="BackButton" Click="BackButton_Click" Content="&#xE0A6;" Margin="-55,23,0,0" VerticalAlignment="Top" Height="35" Width="44" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualSecondaryBrush="{x:Null}"                                                FontFamily="{StaticResource SegoeFluentIcons}" FontSize="16"/>
                 </Grid.Children>
             </Grid>
         </ScrollViewer.Content>

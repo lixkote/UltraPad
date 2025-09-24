@@ -40,6 +40,7 @@
             <RadioButton x:Name="AlignLeftButton" Style="{StaticResource PaintUIToggleButtonStyle}"
                      Content="&#xe8e4;"
                      Width="32"
+                                               FontFamily="{StaticResource SegoeFluentIcons}"
                      MinWidth="32"
                      MaxWidth="32"
                      Height="32"
@@ -55,6 +56,7 @@
                      Content="&#xe8e3;"
                      Width="32"
                      MinWidth="32"
+                                               FontFamily="{StaticResource SegoeFluentIcons}"
                      MaxWidth="32"
                      Height="32"
                      Grid.Column="1"
@@ -69,6 +71,7 @@
                      Content="&#xe8e2;"
                      Width="32"
                      MinWidth="32"
+                                               FontFamily="{StaticResource SegoeFluentIcons}"
                      MaxWidth="32"
                      Height="32"
                      Grid.Column="2"
@@ -81,6 +84,7 @@
 
             <RadioButton x:Name="AlignJustifyButton" Style="{StaticResource PaintUIToggleButtonStyle}"
                      Content="&#xe700;"
+                                               FontFamily="{StaticResource SegoeFluentIcons}"
                      Width="32"
                      MinWidth="32"
                      MaxWidth="32"
@@ -109,7 +113,7 @@
                     <Image Width="16" Height="16" Source="{Binding Source={ThemeResource Paragraph}}" Margin="0,2,0,-2" />
                 </Button.Content>
             </Button>
-            <muxc:ToggleSplitButton Template="{StaticResource PaintUIHorizontalToggleSplitButton}" x:Name="TextBulletingButton" Grid.Column="2" Grid.ColumnSpan="3" Width="77" Height="29" Padding="11,0,11,0" FontFamily="Segoe Fluent Icons" Content="" FontSize="20" Click="BulletButton_Click">
+            <muxc:ToggleSplitButton Template="{StaticResource PaintUIHorizontalToggleSplitButton}" x:Name="TextBulletingButton" Grid.Column="2" Grid.ColumnSpan="3" Width="77" Height="29" Padding="11,0,11,0"                       FontFamily="{StaticResource SegoeFluentIcons}" Content="" FontSize="20" Click="BulletButton_Click">
                 <ToolTipService.ToolTip>
                     <ToolTip Content="List" />
                 </ToolTipService.ToolTip>

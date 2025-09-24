@@ -383,6 +383,7 @@
             <Button Style="{StaticResource MenuButton}"
                     ToolTipService.ToolTip="Save"
                     x:Uid="savebutton"
+                                                                   FontFamily="{StaticResource SegoeFluentIcons}"
                     ToolTipService.Placement="Top"
                     Content="&#xE74E;" Click="SaveButton_Click">
                 <Button.KeyboardAccelerators>
@@ -393,6 +394,7 @@
             <AppBarSeparator />
             <Button x:Name="ShareButton" Style="{StaticResource MenuButton}"
         Content=""
+                                                                   FontFamily="{StaticResource SegoeFluentIcons}"
         ToolTipService.ToolTip="Share"
         ToolTipService.Placement="Top"
                     x:Uid="sharebuttontoolbar"
@@ -401,6 +403,7 @@
             <Button Style="{StaticResource MenuButton}"
                     x:Uid="undobuttontoolbar"
                     ToolTipService.Placement="Top"
+                                                                   FontFamily="{StaticResource SegoeFluentIcons}"
                     Content="&#xE7A7;"
                     Click="Undo_Click" 
                     >
@@ -414,6 +417,7 @@
             <Button Style="{StaticResource MenuButton}"
                     x:Uid="redobuttontoolbar"
                     ToolTipService.Placement="Top"
+                                                                   FontFamily="{StaticResource SegoeFluentIcons}"
                     Content="&#xE7A6;"
                     Click="Redo_Click">
                 <Button.KeyboardAccelerators>
@@ -426,6 +430,7 @@
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
             <Button x:Name="SettingsButton" Style="{StaticResource MenuButton}"
         Content="&#xE115;"
+                                                                   FontFamily="{StaticResource SegoeFluentIcons}"
                     x:Uid="toolbarsetbutton"
         ToolTipService.Placement="Bottom"
         Grid.Row="2"

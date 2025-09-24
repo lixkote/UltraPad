@@ -13,14 +13,14 @@
   IgnorableNamespaces="uap mp rescap desktop uap3 rescap3 a">
 
   <Identity
-    Name="RectifyPad"
+    Name="UltraPad"
     Publisher="CN=lixkote"
     Version="11.2311.2.0" />
 
   <mp:PhoneIdentity PhoneProductId="b36d39c6-c6c9-49b7-8519-9919bf164161" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>RectifyPad</DisplayName>
+    <DisplayName>UltraPad</DisplayName>
     <PublisherDisplayName>Lixkote</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -33,7 +33,7 @@
     <Resource Language="x-generate"/>
 	<Resource Language="en-US"/>
 	<Resource Language="pl-PL"/>
-	<Resource Language="pl"/>
+	<Resource Language="pl"/> 
   </Resources>
 
   <Applications>

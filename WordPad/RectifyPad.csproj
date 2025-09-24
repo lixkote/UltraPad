@@ -11,7 +11,7 @@
     <AssemblyName>WordPad</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.26100.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -425,9 +425,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\WordPadIcons.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Assets\WordPadIcons.ttf" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en-US\Resources.resw">
@@ -435,6 +433,7 @@
     </PRIResource>
     <PRIResource Include="Strings\pl-PL\Resources.resw" />
     <PRIResource Include="Strings\qps-ploc\Resources.resw" />
+    <Content Include="Assets\Segoe Fluent Icons.ttf" />
     <None Include="WordPad_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
