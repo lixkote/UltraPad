@@ -392,7 +392,7 @@
     <Grid x:Name="RulerGrid" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
         <ScrollViewer x:Name="SCR3" ZoomMode="Disabled" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top" ZoomSnapPointsType="None" VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled" IsVerticalScrollChainingEnabled="False" ViewChanged="SCR3_ViewChanged">
             <Grid Margin="0,-14,0,-6">
-                <Border BorderThickness="1" Margin="36,10,36,0" CornerRadius="4" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" Height="28" VerticalAlignment="Center" BorderBrush="{ThemeResource CardStrokeColorDefaultSolidBrush}">
+                <Border BorderThickness="1" Margin="36,10,36,0" CornerRadius="6" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" Height="28" VerticalAlignment="Center" BorderBrush="{ThemeResource CardStrokeColorDefaultSolidBrush}">
                     
                 </Border>
                 <Grid Margin="37,0,36,0">

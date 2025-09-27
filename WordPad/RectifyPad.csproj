@@ -185,6 +185,9 @@
     <Compile Include="WordPadUI\TextRuler.xaml.cs">
       <DependentUpon>TextRuler.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WordPadUI\DocTree.xaml.cs">
+      <DependentUpon>DocTree.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -397,6 +400,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WordPadUI\TextRuler.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WordPadUI\DocTree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
