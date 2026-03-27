@@ -101,7 +101,7 @@ namespace WordPad.WordPadUI.Ribbon
         {
             // Create a ContentDialog
             ContentDialog dialog = new ContentDialog();
-            dialog.Title = "Insert Object";
+            dialog.Title = "Insert object";
 
             // Create a ListView for the user to select the insert option
             ListView listView = new ListView();
@@ -110,7 +110,7 @@ namespace WordPad.WordPadUI.Ribbon
             // Create a list of insert options to display in the ListView
             List<string> insertOptions = new List<string>();
             //insertOptions.Add("Paint a picture");
-            insertOptions.Add("Insert Table");
+            insertOptions.Add("Table");
 
             // Set the ItemsSource of the ListView to the list of insert options
             listView.ItemsSource = insertOptions;
@@ -168,7 +168,7 @@ namespace WordPad.WordPadUI.Ribbon
                     await tempFile.DeleteAsync();
                 }
                 // Insert a table into the RichEditBox
-                else if (selectedOption == "Insert Table")
+                else if (selectedOption == "Table")
                 {
                     //CreateStringBuilder object
                     StringBuilder strTable = new StringBuilder();

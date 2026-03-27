@@ -93,7 +93,7 @@ namespace WordPad.WordPadUI
             Paper.Height = height;
 
             // Update the exampletextgrid margin
-            UpdateMarginPreview();
+            //UpdateMarginPreview();
 
             // Update the orientation radio buttons
             orientationportait.IsChecked = orientation == "Landscape";
@@ -112,7 +112,7 @@ namespace WordPad.WordPadUI
             LoadAndLimitMarginValue(BottomMarginTextBox, "pagesetupBmargin", unit, maxMargin);
 
             // Update the exampletextgrid margin based on the loaded values
-            UpdateMarginPreview();
+            //UpdateMarginPreview();
         }
 
         private void LoadAndLimitMarginValue(TextBox textBox, string settingKey, string unit, double maxMargin)
@@ -201,7 +201,7 @@ namespace WordPad.WordPadUI
                 isOrientationChanged = false;
             }
 
-            UpdateMarginPreview();
+            //UpdateMarginPreview();
         }
 
         private void orientationlandscape_Checked(object sender, RoutedEventArgs e)
@@ -215,7 +215,7 @@ namespace WordPad.WordPadUI
                 isOrientationChanged = true;
             }
 
-            UpdateMarginPreview();
+            //UpdateMarginPreview();
         }
 
         private double ConvertToUnit(double value, string unit)

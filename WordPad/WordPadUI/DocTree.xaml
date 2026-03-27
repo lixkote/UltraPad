@@ -8,19 +8,19 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" >
     <Grid Background="{ThemeResource LayerFillColorDefaultBrush}"
-              BorderBrush="{ThemeResource CardStrokeColorDefaultSolidBrush}" BorderThickness="1" CornerRadius="10" Height="Auto">
+              BorderBrush="{ThemeResource CardStrokeColorDefaultSolidBrush}" BorderThickness="1" CornerRadius="8" Height="Auto">
         <Grid.RowDefinitions>
-            <RowDefinition Height="15*"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="201*"/>
         </Grid.RowDefinitions>
-        <Button Style="{StaticResource PaintUIButtonStyle}" Grid.Row="0" Margin="10" CornerRadius="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="0,0,0,0">
+        <Button Grid.Row="0" Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="0,0,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40*"/>
+                    <ColumnDefinition Width="38"/>
                     <ColumnDefinition Width="289*"/>
                 </Grid.ColumnDefinitions>
                 <FontIcon FontFamily="/Assets/Segoe Fluent Icons.ttf#Segoe Fluent Icons" FontSize="16" Glyph=""></FontIcon>
-                <TextBlock FontSize="12" FontFamily="Segoe UI"  Grid.Column="2" Text="Choose source folder" VerticalAlignment="Center"/>
+                <TextBlock FontSize="12" FontFamily="Segoe UI"  Grid.Column="2" Text="Pick source folder" VerticalAlignment="Center"/>
             </Grid>
         </Button>
     </Grid>

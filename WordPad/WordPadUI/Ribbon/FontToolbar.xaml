@@ -43,34 +43,37 @@
         </Flyout>
     </UserControl.Resources>
 
-    <Grid x:Name="FontGridExpanded" BorderBrush="{ThemeResource RibbonColumnBorder}"
+    <Grid x:Name="RootFontGrid" BorderBrush="{ThemeResource RibbonColumnBorder}"
       BorderThickness="0,0,0,0"
-      Padding="4"
       Grid.Column="1">
-
+        
         <Grid.RowDefinitions>
-            <RowDefinition Height="72" />
-            <RowDefinition Height="24" />
+            <RowDefinition Height="*" MinHeight="72" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        <Grid x:Name="FontGridExpanded" BorderBrush="{ThemeResource RibbonColumnBorder}"
+      BorderThickness="0,0,0,0"
+      Grid.Column="1" HorizontalAlignment="1" VerticalAlignment="1">
 
-        <Grid ColumnSpacing="8">
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-            </Grid.RowDefinitions>
+            <Grid RowSpacing="8" ColumnSpacing="8" Margin="0,4,0,0">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="32" />
-                <ColumnDefinition Width="32" />
-                <ColumnDefinition Width="32" />
-                <ColumnDefinition Width="32" />
-                <ColumnDefinition Width="77"/>
-                <ColumnDefinition Width="32" />
-                <ColumnDefinition Width="120" />
-            </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
 
-            <Button Style="{StaticResource PaintUIButtonStyle}"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="32" />
+                    <ColumnDefinition Width="32" />
+                    <ColumnDefinition Width="32" />
+                    <ColumnDefinition Width="32" />
+                    <ColumnDefinition Width="77"/>
+                    <ColumnDefinition Width="32" />
+                    <ColumnDefinition Width="120" />
+                </Grid.ColumnDefinitions>
+
+                <Button Style="{StaticResource PaintUIButtonStyle}"
                 Content="&#xe8d2;"
                 Width="32"
                 MinWidth="32"
@@ -81,7 +84,7 @@
                 Visibility="Collapsed"/>
 
 
-            <Button x:Name="FontEnlargeButton" Style="{StaticResource PaintUIButtonStyle}"
+                <Button x:Name="FontEnlargeButton" Style="{StaticResource PaintUIButtonStyle}"
                 Width="32"
                 MinWidth="32"
                 MaxWidth="32"
@@ -89,15 +92,15 @@
                 Height="32"
                 Grid.Column="6"
                 FontSize="20" Click="FontEnlargeButton_Click" Margin="19,0,0,0" RenderTransformOrigin="0.836,0.508">
-                <Button.Content>
-                    <Image Width="16" Height="16" Source="{Binding Source={ThemeResource FontIncrease}}" />
-                </Button.Content>
-                <ToolTipService.ToolTip>
-                    <ToolTip Content="Font enlarge" />
-                </ToolTipService.ToolTip>
-            </Button>
+                    <Button.Content>
+                        <Image Width="16" Height="16" Source="{Binding Source={ThemeResource FontIncrease}}" />
+                    </Button.Content>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="Font enlarge" />
+                    </ToolTipService.ToolTip>
+                </Button>
 
-            <Button x:Name="FontDislargeButton" Style="{StaticResource PaintUIButtonStyle}"
+                <Button x:Name="FontDislargeButton" Style="{StaticResource PaintUIButtonStyle}"
                 Width="32"
                 MinWidth="32"
                 MaxWidth="32"
@@ -105,67 +108,67 @@
                 FontFamily="{StaticResource SegoeFluentIcons}"
                 Grid.Column="6"
                 FontSize="20" Click="FontDislargeButton_Click" Margin="57,0,0,0" RenderTransformOrigin="0.57,0.492">
-                <Button.Content>
-                    <Image Width="16" Height="16" Source="{Binding Source={ThemeResource FontDecrease}}" />
-                </Button.Content>
-                <ToolTipService.ToolTip>
-                    <ToolTip Content="Font dislarge" />
-                </ToolTipService.ToolTip>
-            </Button>
+                    <Button.Content>
+                        <Image Width="16" Height="16" Source="{Binding Source={ThemeResource FontDecrease}}" />
+                    </Button.Content>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="Font dislarge" />
+                    </ToolTipService.ToolTip>
+                </Button>
 
 
-            <ToggleButton x:Name="TextBoldButton" Style="{StaticResource PaintUIToggleButtonStyle}"
+                <ToggleButton x:Name="TextBoldButton" Style="{StaticResource PaintUIToggleButtonStyle}"
                       Content="&#xe8dd;"
                       FontFamily="{StaticResource SegoeFluentIcons}"
                       Width="32"
                       Height="32"
                       Grid.Column="0"
                       Grid.Row="1" Click="TextBoldButton_Click">
-                <ToolTipService.ToolTip>
-                    <ToolTip Content="Bold" />
-                </ToolTipService.ToolTip>
-            </ToggleButton>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="Bold" />
+                    </ToolTipService.ToolTip>
+                </ToggleButton>
 
 
-            <ToggleButton x:Name="TextItalicButton" Style="{StaticResource PaintUIToggleButtonStyle}"
+                <ToggleButton x:Name="TextItalicButton" Style="{StaticResource PaintUIToggleButtonStyle}"
                       Content="&#xe8db;"
                       FontFamily="{StaticResource SegoeFluentIcons}"
                       Width="32"
                       Height="32"
                       Grid.Column="1"
                       Grid.Row="1" Click="TextItalicButton_Click">
-                <ToolTipService.ToolTip>
-                    <ToolTip Content="Italic" />
-                </ToolTipService.ToolTip>
-            </ToggleButton>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="Italic" />
+                    </ToolTipService.ToolTip>
+                </ToggleButton>
 
 
-            <ToggleButton x:Name="TextUnderlineButton" Style="{StaticResource PaintUIToggleButtonStyle}"
+                <ToggleButton x:Name="TextUnderlineButton" Style="{StaticResource PaintUIToggleButtonStyle}"
                       Content="&#xe8dc;"
                       Width="32"
                                                 FontFamily="{StaticResource SegoeFluentIcons}"
                       Height="32"
                       Grid.Column="2"
                       Grid.Row="1" Click="TextUnderlineButton_Click">
-                <ToolTipService.ToolTip>
-                    <ToolTip Content="Underline" />
-                </ToolTipService.ToolTip>
-            </ToggleButton>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="Underline" />
+                    </ToolTipService.ToolTip>
+                </ToggleButton>
 
 
-            <ToggleButton x:Name="TextStrikethroughButton" Style="{StaticResource PaintUIToggleButtonStyle}"
+                <ToggleButton x:Name="TextStrikethroughButton" Style="{StaticResource PaintUIToggleButtonStyle}"
                       Content="&#xede0;"
                       FontFamily="{StaticResource SegoeFluentIcons}"
                       Width="32"
                       Height="32"
                       Grid.Column="3"
                       Grid.Row="1" Click="TextStrikethroughButton_Click">
-                <ToolTipService.ToolTip>
-                    <ToolTip Content="Strikethrough" />
-                </ToolTipService.ToolTip>
-            </ToggleButton>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="Strikethrough" />
+                    </ToolTipService.ToolTip>
+                </ToggleButton>
 
-            <ToggleButton x:Name="TextSubscriptButton" Style="{StaticResource PaintUIToggleButtonStyle}"
+                <ToggleButton x:Name="TextSubscriptButton" Style="{StaticResource PaintUIToggleButtonStyle}"
                      Padding="0"
                      Width="32"
                      MinWidth="32"
@@ -174,15 +177,15 @@
                      Grid.Column="4"
                      Grid.Row="1"
                      Margin="2,0,0,0" Grid.ColumnSpan="2" Click="TextSubscriptButton_Click">
-                <ToggleButton.Content>
-                    <Image Width="16" Height="16" Source="{Binding Source={ThemeResource BottomScript}}" />
-                </ToggleButton.Content>
-                <ToolTipService.ToolTip>
-                    <ToolTip Content="Subscript" />
-                </ToolTipService.ToolTip>
-            </ToggleButton>
+                    <ToggleButton.Content>
+                        <Image Width="16" Height="16" Source="{Binding Source={ThemeResource BottomScript}}" />
+                    </ToggleButton.Content>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="Subscript" />
+                    </ToolTipService.ToolTip>
+                </ToggleButton>
 
-            <ToggleButton x:Name="TextSuperscriptButton" Style="{StaticResource PaintUIToggleButtonStyle}"
+                <ToggleButton x:Name="TextSuperscriptButton" Style="{StaticResource PaintUIToggleButtonStyle}"
                      Padding="0"
                      Width="32"
                      MinWidth="32"
@@ -191,558 +194,558 @@
                      Grid.Column="5"
                      Grid.Row="1"
                      Margin="-40,0,0,0" Grid.ColumnSpan="2" Click="TextSuperscriptButton_Click" FontFamily="WordPad Fluent Icons">
-                <ToolTipService.ToolTip>
-                    <ToolTip Content="Superscript" />
-                </ToolTipService.ToolTip>
-                <ToggleButton.Content>
-                    <Image Width="16" Height="16" Source="{Binding Source={ThemeResource UpScript}}" />
-                </ToggleButton.Content>
-            </ToggleButton>
-            <ComboBox x:Name="FontsComboBox" Loaded="FontsComboBox_Loaded" ItemsSource="{Binding Fonts}" SelectionChanged="FontsCombo_SelectionChanged" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" IsEditable="True" Margin="0,0,40,0">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate x:DataType="x:String">
-                        <TextBlock FontFamily="{x:Bind}" Text="{x:Bind}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="Superscript" />
+                    </ToolTipService.ToolTip>
+                    <ToggleButton.Content>
+                        <Image Width="16" Height="16" Source="{Binding Source={ThemeResource UpScript}}" />
+                    </ToggleButton.Content>
+                </ToggleButton>
+                <ComboBox x:Name="FontsComboBox" Loaded="FontsComboBox_Loaded" ItemsSource="{Binding Fonts}" SelectionChanged="FontsCombo_SelectionChanged" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" IsEditable="True" Margin="0,0,40,0">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <TextBlock FontFamily="{x:Bind}" Text="{x:Bind}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
-            <ComboBox x:Name="fontSizeComboBox" Grid.Column="4" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" IsEditable="True" 
+                <ComboBox x:Name="fontSizeComboBox" Grid.Column="4" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" IsEditable="True" 
                                Margin="43,0,106,0" TextSubmitted="FontSizeCombo_TextSubmitted" ItemsSource="{x:Bind FontSizes}" PlaceholderText="" SelectionChanged="FontSizeCombo_SelectionChanged" SelectedIndex="3">
-            </ComboBox>
-            
-            <muxc:SplitButton x:Name="FontTextColorDropDownButton" Template="{StaticResource PaintUIHorizontalSplitButton}" Grid.Column="6" Margin="-38,0,0,0" Grid.Row="1" Width="77" FontFamily="WordPad Fluent Icons" FontSize="20" Click="FontTextColorDropDownButton_Click" Height="27" Padding="0,0,0,0" UseLayoutRounding="True">
-                <muxc:SplitButton.Content>
-                    <Grid>
-                        <FontIcon x:Name="FontColorMarkerMain" Glyph="" FontSize="20" FontFamily="WordPad Fluent Icons"></FontIcon>
-                        <TextBlock x:Name="FontColorMarker" Text="&#xE8FC;" FontFamily="WordPad Fluent Icons" FontSize="20" Foreground="Transparent"/>
-                    </Grid>
-                </muxc:SplitButton.Content>
-                <ToolTipService.ToolTip>
-                    <ToolTip Content="Font text color" />
-                </ToolTipService.ToolTip>
-                <muxc:SplitButton.Flyout>
-                    <Flyout Placement="Bottom">
-                        <RelativePanel>
-                            <VariableSizedWrapGrid x:Name="colorGrid" MaximumRowsOrColumns="6" RelativePanel.Below="Autobutton" Width="155" Margin="0,3,0,3">
-                                <VariableSizedWrapGrid.Resources>
-                                    <Style TargetType="Rectangle">
-                                        <Setter Property="Width" Value="25"/>
-                                        <Setter Property="Height" Value="25"/>
-                                    </Style>
+                </ComboBox>
 
-                                    <Style TargetType="Button">
-                                        <Setter Property="Padding" Value="0"/>
-                                        <Setter Property="Width" Value="25"/>
-                                        <Setter Property="Height" Value="25"/>
-                                        <Setter Property="MinWidth" Value="0"/>
-                                        <Setter Property="MinHeight" Value="0"/>
-                                        <Setter Property="Margin" Value="3"/>
-                                        <Setter Property="CornerRadius" Value="15"/>
-                                        <Setter Property="Background"
+                <muxc:SplitButton x:Name="FontTextColorDropDownButton" Template="{StaticResource PaintUIHorizontalSplitButton}" Grid.Column="6" Margin="-38,0,0,0" Grid.Row="1" Width="77" FontFamily="WordPad Fluent Icons" FontSize="20" Click="FontTextColorDropDownButton_Click" Height="27" Padding="0,0,0,0" UseLayoutRounding="True">
+                    <muxc:SplitButton.Content>
+                        <Grid>
+                            <FontIcon x:Name="FontColorMarkerMain" Glyph="" FontSize="20" FontFamily="WordPad Fluent Icons"></FontIcon>
+                            <TextBlock x:Name="FontColorMarker" Text="&#xE8FC;" FontFamily="WordPad Fluent Icons" FontSize="20" Foreground="Transparent"/>
+                        </Grid>
+                    </muxc:SplitButton.Content>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="Font text color" />
+                    </ToolTipService.ToolTip>
+                    <muxc:SplitButton.Flyout>
+                        <Flyout Placement="Bottom">
+                            <RelativePanel>
+                                <VariableSizedWrapGrid x:Name="colorGrid" MaximumRowsOrColumns="6" RelativePanel.Below="Autobutton" Width="155" Margin="0,3,0,3">
+                                    <VariableSizedWrapGrid.Resources>
+                                        <Style TargetType="Rectangle">
+                                            <Setter Property="Width" Value="25"/>
+                                            <Setter Property="Height" Value="25"/>
+                                        </Style>
+
+                                        <Style TargetType="Button">
+                                            <Setter Property="Padding" Value="0"/>
+                                            <Setter Property="Width" Value="25"/>
+                                            <Setter Property="Height" Value="25"/>
+                                            <Setter Property="MinWidth" Value="0"/>
+                                            <Setter Property="MinHeight" Value="0"/>
+                                            <Setter Property="Margin" Value="3"/>
+                                            <Setter Property="CornerRadius" Value="15"/>
+                                            <Setter Property="Background"
                     Value="Transparent" />
-                                        <Setter Property="BackgroundSizing"
+                                            <Setter Property="BackgroundSizing"
                     Value="OuterBorderEdge" />
-                                        <Setter Property="BorderBrush"
+                                            <Setter Property="BorderBrush"
                     Value="Transparent" />
-                                        <Setter Property="Padding"
+                                            <Setter Property="Padding"
                     Value="0" />
-                                        <Setter Property="FontWeight"
+                                            <Setter Property="FontWeight"
                     Value="Normal" />
-                                        <Setter Property="FontSize"
+                                            <Setter Property="FontSize"
                     Value="16" />
 
 
-                                    </Style>
-                                </VariableSizedWrapGrid.Resources>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Red">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#ffffff"/>
+                                        </Style>
+                                    </VariableSizedWrapGrid.Resources>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Red">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#ffffff"/>
+                                                </Border>
                                             </Border>
-                                        </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Orange">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#a5a5a5"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Yellow">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#666666"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Green">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#666666"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Blue">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#333333"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Light Blue">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#000000"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Indigo" >
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#ff0000"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Violet" >
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#ffc000"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Gray" >
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#ffff00"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Beige" >
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#00b050"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Black" >
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#004dbb"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="White">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#9b00d3"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Indigo">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#c0504d"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Violet">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#f79646"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Gray">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#9bbb59"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Beige">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#4bacc6"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Black">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#4f81bd"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="White">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#8064a2"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Indigo">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#d16349"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Violet">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#d19049"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Gray" >
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#ccb400"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Beige" >
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#8fb08c"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Black" >
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#646b86"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="White">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#9e7c7c"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Indigo" >
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#dd8484"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Violet" >
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#f3a447"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Gray" >
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#dfce04"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Beige" >
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#a5b592"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Black" >
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#809ec2"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="White">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#9c85c0"/>
+                                                </Border>
+                                            </Border>
+                                        </Button.Content>
+                                    </Button>
+                                </VariableSizedWrapGrid>
+                                <Button Style="{StaticResource PaintUIButtonStyle}" Flyout="{StaticResource myColorPickerFlyout}" RelativePanel.Below="colorGrid" Width="154" x:Name="colorPickerButton" FontFamily="Segoe UI" FontSize="11" Height="34">
+                                    <Button.Content>
+                                        <Grid>
+                                            <TextBlock x:Uid="morecolors" Text="More colors..." Margin="25,0,0,0"></TextBlock>
+                                            <FontIcon Glyph="" HorizontalAlignment="Left" FontSize="16"></FontIcon>
+                                        </Grid>
                                     </Button.Content>
                                 </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Orange">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#a5a5a5"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Yellow">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#666666"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Green">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#666666"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Blue">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#333333"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Light Blue">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#000000"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Indigo" >
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#ff0000"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Violet" >
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#ffc000"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Gray" >
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#ffff00"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Beige" >
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#00b050"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Black" >
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#004dbb"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="White">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#9b00d3"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Indigo">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#c0504d"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Violet">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#f79646"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Gray">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#9bbb59"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Beige">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#4bacc6"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Black">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#4f81bd"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="White">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#8064a2"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Indigo">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#d16349"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Violet">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#d19049"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Gray" >
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#ccb400"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Beige" >
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#8fb08c"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Black" >
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#646b86"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="White">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#9e7c7c"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Indigo" >
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#dd8484"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Violet" >
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#f3a447"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Gray" >
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#dfce04"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Beige" >
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#a5b592"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="Black" >
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#809ec2"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="TextColorPickerButton_Click" ToolTipService.ToolTip="White">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#9c85c0"/>
-                                            </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                            </VariableSizedWrapGrid>
-                            <Button Style="{StaticResource PaintUIButtonStyle}" Flyout="{StaticResource myColorPickerFlyout}" RelativePanel.Below="colorGrid" Width="154" x:Name="colorPickerButton" FontFamily="Segoe UI" FontSize="11" Height="34">
-                                <Button.Content>
-                                    <Grid>
-                                        <TextBlock x:Uid="morecolors" Text="More colors..." Margin="25,0,0,0"></TextBlock>
-                                        <FontIcon Glyph="" HorizontalAlignment="Left" FontSize="16"></FontIcon>
-                                    </Grid>
-                                </Button.Content>
-                            </Button>
-                            <ToggleButton Width="155" x:Name="Autobutton" Checked="Autobutton_Checked" Unchecked="Autobutton_Unchecked" Style="{StaticResource PaintUIToggleButtonStyle}" FontFamily="Segoe UI" Height="35">
-                                <ToggleButton.Content>
-                                    <Grid>
-                                        <TextBlock x:Uid="Automatical" Text="Automatical" Margin="25,0,0,0" FontSize="11"></TextBlock>
-                                        <FontIcon Glyph="" HorizontalAlignment="Left" FontSize="16"></FontIcon>
-                                    </Grid>
-                                </ToggleButton.Content>
-                            </ToggleButton>
-                        </RelativePanel>
-                    </Flyout>
-                </muxc:SplitButton.Flyout>
-            </muxc:SplitButton>
-            <muxc:SplitButton Template="{StaticResource PaintUIHorizontalSplitButton}" x:Name="FontBackgroundColorDropDownButton" Grid.Column="6" Margin="43,0,0,0" Grid.Row="1" Width="77" FontFamily="WordPad Fluent Icons" FontSize="20" Click="FontBackgroundColorDropDownButton_Click" Height="27" Padding="0,0,0.2,0">
-                <muxc:SplitButton.Content>
-                    <Grid>
-                        <FontIcon x:Name="BackTextColorMarkerMain" Glyph="&#xE8FF;" FontSize="20" ></FontIcon>
-                        <TextBlock x:Name="BackTextColorMarker" Text="&#xE8FE;" FontSize="20" Foreground="Transparent"/>
-                    </Grid>
-                </muxc:SplitButton.Content>
-                <ToolTipService.ToolTip>
-                    <ToolTip Content="Font background color" />
-                </ToolTipService.ToolTip>
-                <muxc:SplitButton.Flyout>
-                    <Flyout Placement="Bottom">
-                        <RelativePanel>
-                            <VariableSizedWrapGrid x:Name="colorGrid2" Orientation="Vertical" MaximumRowsOrColumns="3">
-                                <VariableSizedWrapGrid.Resources>
-                                    <Style TargetType="Rectangle">
-                                        <Setter Property="Width" Value="30"/>
-                                        <Setter Property="Height" Value="30"/>
-                                    </Style>
+                                <ToggleButton Width="155" x:Name="Autobutton" Checked="Autobutton_Checked" Unchecked="Autobutton_Unchecked" Style="{StaticResource PaintUIToggleButtonStyle}" FontFamily="Segoe UI" Height="35">
+                                    <ToggleButton.Content>
+                                        <Grid>
+                                            <TextBlock x:Uid="Automatical" Text="Automatical" Margin="25,0,0,0" FontSize="11"></TextBlock>
+                                            <FontIcon Glyph="" HorizontalAlignment="Left" FontSize="16"></FontIcon>
+                                        </Grid>
+                                    </ToggleButton.Content>
+                                </ToggleButton>
+                            </RelativePanel>
+                        </Flyout>
+                    </muxc:SplitButton.Flyout>
+                </muxc:SplitButton>
+                <muxc:SplitButton Template="{StaticResource PaintUIHorizontalSplitButton}" x:Name="FontBackgroundColorDropDownButton" Grid.Column="6" Margin="43,0,0,0" Grid.Row="1" Width="77" FontFamily="WordPad Fluent Icons" FontSize="20" Click="FontBackgroundColorDropDownButton_Click" Height="27" Padding="0,0,0.2,0">
+                    <muxc:SplitButton.Content>
+                        <Grid>
+                            <FontIcon x:Name="BackTextColorMarkerMain" Glyph="&#xE8FF;" FontSize="20" ></FontIcon>
+                            <TextBlock x:Name="BackTextColorMarker" Text="&#xE8FE;" FontSize="20" Foreground="Transparent"/>
+                        </Grid>
+                    </muxc:SplitButton.Content>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="Font background color" />
+                    </ToolTipService.ToolTip>
+                    <muxc:SplitButton.Flyout>
+                        <Flyout Placement="Bottom">
+                            <RelativePanel>
+                                <VariableSizedWrapGrid x:Name="colorGrid2" Orientation="Vertical" MaximumRowsOrColumns="3">
+                                    <VariableSizedWrapGrid.Resources>
+                                        <Style TargetType="Rectangle">
+                                            <Setter Property="Width" Value="30"/>
+                                            <Setter Property="Height" Value="30"/>
+                                        </Style>
 
-                                    <Style TargetType="Button">
-                                        <Setter Property="Padding" Value="0"/>
-                                        <Setter Property="Width" Value="30"/>
-                                        <Setter Property="Height" Value="30"/>
-                                        <Setter Property="MinWidth" Value="0"/>
-                                        <Setter Property="MinHeight" Value="0"/>
-                                        <Setter Property="Margin" Value="2"/>
-                                        <Setter Property="CornerRadius" Value="15"/>
-                                        <Setter Property="Background"
+                                        <Style TargetType="Button">
+                                            <Setter Property="Padding" Value="0"/>
+                                            <Setter Property="Width" Value="30"/>
+                                            <Setter Property="Height" Value="30"/>
+                                            <Setter Property="MinWidth" Value="0"/>
+                                            <Setter Property="MinHeight" Value="0"/>
+                                            <Setter Property="Margin" Value="2"/>
+                                            <Setter Property="CornerRadius" Value="15"/>
+                                            <Setter Property="Background"
                     Value="Transparent" />
-                                        <Setter Property="BackgroundSizing"
+                                            <Setter Property="BackgroundSizing"
                     Value="OuterBorderEdge" />
-                                        <Setter Property="BorderBrush"
+                                            <Setter Property="BorderBrush"
                     Value="Transparent" />
-                                        <Setter Property="Padding"
+                                            <Setter Property="Padding"
                     Value="0" />
-                                        <Setter Property="FontWeight"
+                                            <Setter Property="FontWeight"
                     Value="Normal" />
-                                        <Setter Property="FontSize"
+                                            <Setter Property="FontSize"
                     Value="16" />
 
 
-                                    </Style>
-                                </VariableSizedWrapGrid.Resources>
-                                <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Red" AutomationProperties.Name="Red">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#ffff00"/>
+                                        </Style>
+                                    </VariableSizedWrapGrid.Resources>
+                                    <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Red" AutomationProperties.Name="Red">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#ffff00"/>
+                                                </Border>
                                             </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Orange" AutomationProperties.Name="Orange">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#ff0000"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Orange" AutomationProperties.Name="Orange">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#ff0000"/>
+                                                </Border>
                                             </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Yellow" AutomationProperties.Name="Yellow">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#800000"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Yellow" AutomationProperties.Name="Yellow">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#800000"/>
+                                                </Border>
                                             </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Green" AutomationProperties.Name="Green">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#00ff00"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Green" AutomationProperties.Name="Green">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#00ff00"/>
+                                                </Border>
                                             </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Blue" AutomationProperties.Name="Blue">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#000080"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Blue" AutomationProperties.Name="Blue">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#000080"/>
+                                                </Border>
                                             </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Light Blue" AutomationProperties.Name="LightBlue">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#808000"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Light Blue" AutomationProperties.Name="LightBlue">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#808000"/>
+                                                </Border>
                                             </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Indigo" AutomationProperties.Name="Indigo">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#00ffff"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Indigo" AutomationProperties.Name="Indigo">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#00ffff"/>
+                                                </Border>
                                             </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Violet" AutomationProperties.Name="Violet" >
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#008080"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Violet" AutomationProperties.Name="Violet" >
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#008080"/>
+                                                </Border>
                                             </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Gray" AutomationProperties.Name="Gray">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#808080"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Gray" AutomationProperties.Name="Gray">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#808080"/>
+                                                </Border>
                                             </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Beige" AutomationProperties.Name="Beige">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#ff00ff"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Beige" AutomationProperties.Name="Beige">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#ff00ff"/>
+                                                </Border>
                                             </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Black" AutomationProperties.Name="Black">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#008000"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="BackColorButton_Click" ToolTipService.ToolTip="Black" AutomationProperties.Name="Black">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#008000"/>
+                                                </Border>
                                             </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="BackColorButton_Click" ToolTipService.ToolTip="White" AutomationProperties.Name="White">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#c0c0c0"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="BackColorButton_Click" ToolTipService.ToolTip="White" AutomationProperties.Name="White">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#c0c0c0"/>
+                                                </Border>
                                             </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="BackColorButton_Click" ToolTipService.ToolTip="White" AutomationProperties.Name="White">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#0000ff"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="BackColorButton_Click" ToolTipService.ToolTip="White" AutomationProperties.Name="White">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#0000ff"/>
+                                                </Border>
                                             </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="BackColorButton_Click" ToolTipService.ToolTip="White" AutomationProperties.Name="White">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#800080"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="BackColorButton_Click" ToolTipService.ToolTip="White" AutomationProperties.Name="White">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#800080"/>
+                                                </Border>
                                             </Border>
-                                        </Border>
-                                    </Button.Content>
-                                </Button>
-                                <Button Click="BackColorButton_Click" ToolTipService.ToolTip="White" AutomationProperties.Name="White">
-                                    <Button.Content>
-                                        <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
-                                            <Border CornerRadius="100" >
-                                                <Rectangle Fill="#000000"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Click="BackColorButton_Click" ToolTipService.ToolTip="White" AutomationProperties.Name="White">
+                                        <Button.Content>
+                                            <Border CornerRadius="100" BorderBrush="#FFB7B7B7" BorderThickness="1" >
+                                                <Border CornerRadius="100" >
+                                                    <Rectangle Fill="#000000"/>
+                                                </Border>
                                             </Border>
-                                        </Border>
-                                    </Button.Content>
+                                        </Button.Content>
+                                    </Button>
+                                </VariableSizedWrapGrid>
+                                <Button RelativePanel.Below="colorGrid2" Click="NoColorButton_Click" Width="177" x:Name="NoColorButton" Margin="0,5,0,0" Style="{StaticResource PaintUIButtonStyle}" Height="35">
+                                    <Grid>
+                                        <TextBlock Text="No color" Margin="31,0,0,0" VerticalAlignment="Center" FontFamily="Segoe UI" HorizontalAlignment="Left" Height="24">
+                                        </TextBlock>
+                                        <Button x:Name="NoColorPreviewButton" Width="25" Height="25" Background="#FFCEE5FC" BorderBrush="#FF7EB5EB" IsEnabled="True" CornerRadius="1000"/>
+                                    </Grid>
                                 </Button>
-                            </VariableSizedWrapGrid>
-                            <Button RelativePanel.Below="colorGrid2" Click="NoColorButton_Click" Width="177" x:Name="NoColorButton" Margin="0,5,0,0" Style="{StaticResource PaintUIButtonStyle}" Height="35">
-                                <Grid>
-                                    <TextBlock Text="No color" Margin="31,0,0,0" VerticalAlignment="Center" FontFamily="Segoe UI" HorizontalAlignment="Left" Height="24">
-                                    </TextBlock>
-                                    <Button x:Name="NoColorPreviewButton" Width="25" Height="25" Background="#FFCEE5FC" BorderBrush="#FF7EB5EB" IsEnabled="True" CornerRadius="1000"/>
-                                </Grid>
-                            </Button>
-                        </RelativePanel>
-                    </Flyout>
-                </muxc:SplitButton.Flyout>
-            </muxc:SplitButton>
+                            </RelativePanel>
+                        </Flyout>
+                    </muxc:SplitButton.Flyout>
+                </muxc:SplitButton>
 
+
+            </Grid>
 
         </Grid>
-
         <TextBlock x:Uid="FontToolbarTitle"
                Style="{StaticResource ColumnDescriptionTextblockStyle}"
-               Grid.Row="1" VerticalAlignment="Bottom" />
-
+               Grid.Row="1" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </UserControl>

@@ -376,9 +376,9 @@
                                           IsChecked="True"
                                           x:Name="RulerToggle"
                                           />
-                    <ToggleMenuFlyoutItem Text="Docs tree" 
-                                          IsChecked="True"
+                    <ToggleMenuFlyoutItem Visibility="Collapsed" Text="Docs tree" 
                                           x:Name="DocsTreeToggle"
+     Click="DocsTreeToggle_Click"
                                           />
 
                     <MenuFlyoutSeparator />
@@ -794,7 +794,7 @@ VerticalAlignment="Top"
                 </Grid.Children>
             </Grid>
 
-            <Border x:Name="Fulledittoolbar" Height="100" Grid.Column="4" BorderThickness="0,0,0,0" BorderBrush="{ThemeResource RibbonColumnBorder}">
+            <Border x:Name="Fulledittoolbar" Height="100" Width="140" Grid.Column="4" BorderThickness="0,0,0,0" BorderBrush="{ThemeResource RibbonColumnBorder}">
                 <Custom:EditingToolbar x:Name="editribbontoolbar" />
             </Border>
             <Grid x:Name="Colledittoolbar" Grid.Column="4" Visibility="Collapsed" BorderBrush="{ThemeResource RibbonColumnBorder}"
@@ -846,10 +846,10 @@ VerticalAlignment="Top"
 
 
         </Grid>
-        <Border Grid.Column="1" x:Name="RulerBorder" BorderBrush="Transparent" BorderThickness="1" VerticalAlignment="Top" Height="40" Grid.Row="4" Grid.RowSpan="7" Grid.ColumnSpan="2">
+        <Border Grid.Column="0" x:Name="RulerBorder" BorderBrush="Transparent" BorderThickness="1" VerticalAlignment="Top" Height="40" Grid.Row="4" Grid.RowSpan="7" Grid.ColumnSpan="2">
             <my:TextRuler x:Name="TextRuler" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{x:Bind Mode=OneWay, Path=RulerToggle.IsChecked}"/>
         </Border>
-        <Border Grid.Row="4" Loaded="ShadowRect_Loaded" CornerRadius="10" Translation="0,0,19" Grid.Column="0" Margin="10" Visibility="{x:Bind Mode=OneWay, Path=DocsTreeToggle.IsChecked}">
+        <Border Visibility="Collapsed" x:Name="DocTreeBorder" Grid.Row="4" Loaded="ShadowRect_Loaded" CornerRadius="10" Translation="0,0,19" Grid.Column="0" Margin="10">
             <Border.Shadow>
                 <ThemeShadow x:Name="shadow"/>
             </Border.Shadow>
@@ -858,7 +858,7 @@ VerticalAlignment="Top"
         <Grid x:Name="EditorContentHost" Margin="0,40,0,0"
              RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="RulerBorder" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"
               Grid.Row="4"
-              SizeChanged="EditorContentHost_SizeChanged" Grid.Column="1" Grid.ColumnSpan="2">
+              SizeChanged="EditorContentHost_SizeChanged" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid x:Name="EditorContainer">
                 <ScrollViewer x:Name="RichTextScrollView"  HorizontalScrollBarVisibility="Visible" ZoomMode="Enabled" MinZoomFactor="0.5" MaxZoomFactor="3" VerticalAlignment="Top">
                     <Grid x:Name="EditorMandatoryPrintingGrid" Height="1116"   Width="816">

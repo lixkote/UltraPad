@@ -66,7 +66,7 @@
             </ComboBox>
 
         </Grid>
-        <Grid x:Name="Orientcontainer" Grid.Row="2" BorderBrush="{ThemeResource SystemChromeMediumColor}" BorderThickness="0,0,0,1">
+        <Grid x:Name="Orientcontainer" Grid.Row="2" BorderBrush="{ThemeResource SystemChromeMediumColor}" BorderThickness="0,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition>
 
@@ -83,10 +83,10 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBlock x:Uid="orientation" Margin="0,16,0,7" Grid.Row="0" FontSize="14" Grid.ColumnSpan="2" FontFamily="Segoe UI Variable Display Semibold" FontWeight="Bold"/>
-            <RadioButton x:Uid="landscape" x:Name="orientationportait" Checked="orientationportait_Checked" Tag="Portrait"  Grid.Row="2" Margin="0,3,0,10" />
-            <RadioButton x:Uid="portrait" x:Name="orientationlandscape" Checked="orientationlandscape_Checked" Tag="Landscape"  Grid.Row="1" Margin="0,3,0,1" />
+            <RadioButton x:Uid="portrait" x:Name="orientationportait" Checked="orientationportait_Checked" Tag="Landscape"  Grid.Row="2" Margin="0,3,0,10" />
+            <RadioButton x:Uid="landscape" x:Name="orientationlandscape" Checked="orientationlandscape_Checked" Tag="Portrait"  Grid.Row="1" Margin="0,3,0,1" />
         </Grid>
-        <Grid Grid.Row="3" BorderBrush="{ThemeResource SystemChromeMediumColor}" BorderThickness="0,0,0,1">
+        <Grid Visibility="Collapsed" Grid.Row="3" BorderBrush="{ThemeResource SystemChromeMediumColor}" BorderThickness="0,0,0,1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="8*">
 
@@ -119,7 +119,7 @@
             <TextBlock x:Uid="toptr" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
             <TextBlock x:Uid="bottr" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
         </Grid>
-        <Grid Grid.Row="4">
+        <Grid Visibility="Collapsed" Grid.Row="4">
             <CheckBox x:Name="printpagenumbers" x:Uid="printpageTR"  Margin="0,10,0,0" />
         </Grid>
     </Grid>

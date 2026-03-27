@@ -89,7 +89,7 @@ Background="Transparent" >
                         <TextBlock x:Uid="appearance" x:Name="appe" Style="{StaticResource SectionHeader}" Text="Appearance" Margin="0,10,0,10" />
                         <muxc:Expander
                         x:Name="Theme"
-                        Visibility="Visible"
+                        Visibility="Collapsed"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Top"
                         HorizontalContentAlignment="Stretch"
@@ -128,7 +128,7 @@ Background="Transparent" >
                                 </StackPanel>
                                 <ToggleSwitch x:Name="EditorDarkModeToggle" Toggled="EditorDarkModeToggle_Toggled" Grid.Column="3" Height="40" Width="154"></ToggleSwitch>
                             </Grid>
-                            <Grid CornerRadius="4" Background="{StaticResource ExpanderHeaderBackground}" BorderThickness="1" BorderBrush="{StaticResource ExpanderHeaderBorderBrush}" Height="60" Margin="0,5,0,0">
+                            <Grid Visibility="Collapsed" CornerRadius="4" Background="{StaticResource ExpanderHeaderBackground}" BorderThickness="1" BorderBrush="{StaticResource ExpanderHeaderBorderBrush}" Height="60" Margin="0,5,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="49"/>
                                 <ColumnDefinition Width="200"/>
@@ -224,10 +224,10 @@ Background="Transparent" >
                     </StackPanel>
                     <StackPanel Grid.Column="2" x:Name="AboutSection" Grid.Row="2" Margin="{StaticResource ContentBottomWideSpacing}">
                         <TextBlock Style="{StaticResource SectionHeader}" x:Uid="aboutapp" Text="About UltraPad"/>
-                        <TextBlock x:Name="PackageVersionText" IsTextSelectionEnabled="True" Text="UltraPad 11.2507.371.0"/>
-                        <TextBlock x:Uid="copyrighttext" x:Name="CopyrightText" Margin="{StaticResource ContentBottomWideSpacing}" Text="© 2025 Lixkote. All rights reserved."/>
+                        <TextBlock x:Name="PackageVersionText" IsTextSelectionEnabled="True" Text="UltraPad 11.2603.270.0"/>
+                        <TextBlock x:Uid="copyrighttext" x:Name="CopyrightText" Margin="{StaticResource ContentBottomWideSpacing}" Text="© 2026 Lixkote. All rights reserved."/>
 
-                            <TextBlock x:Name="betatext"  Foreground="{ThemeResource SystemErrorTextColor}" IsTextSelectionEnabled="True" Text="Debug build - errors can, and will happen!" Margin="0,0,0,10">
+                            <TextBlock x:Name="betatext" Visibility="Collapsed"  Foreground="{ThemeResource SystemErrorTextColor}" IsTextSelectionEnabled="True" Text="Debug build - errors can, and will happen!" Margin="0,0,0,10">
                             </TextBlock>
 
 

@@ -1743,10 +1743,6 @@
                         TargetType="TextBlock">
                         <Setter Property="FontSize" Value="12" />
                         <Setter Property="Foreground" Value="{ThemeResource TextFillColorSecondaryBrush}" />
-
-                        <Setter Property="HorizontalAlignment" Value="Center" />
-                        <Setter Property="VerticalAlignment" Value="Center" />
-
                         <Setter Property="MaxWidth" Value="100" />
                         <Setter Property="FontFamily" Value="Segoe UI Variable" />
                     </Style>

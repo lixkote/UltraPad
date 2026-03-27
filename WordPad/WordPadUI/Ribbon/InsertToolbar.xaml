@@ -12,27 +12,27 @@
 
     <Grid BorderBrush="{ThemeResource RibbonColumnBorder}"
       BorderThickness="0,0,0,0"
-      Padding="12"
       Grid.Column="3">
-
-
         <Grid.RowDefinitions>
-            <RowDefinition Height="72" />
-            <RowDefinition Height="24" />
+            <RowDefinition Height="*" MinHeight="72" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
-        <Grid ColumnSpacing="8">
+        <Grid Grid.Row="0" ColumnSpacing="8" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,4,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="32" />
                 <ColumnDefinition Width="32" />
                 <ColumnDefinition Width="32" />
                 <ColumnDefinition Width="32" />
             </Grid.ColumnDefinitions>
-            <Button x:Name="InsertImageButton"  Style="{StaticResource PaintUIButtonStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Top"
-                       Width="32"
-                     MinWidth="32"
-                     MaxWidth="32"
-                     Height="15" FontSize="10" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0,42,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="15"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="InsertImageButton" Grid.Row="1" Style="{StaticResource PaintUIButtonStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Top"
+       Width="32"
+     MinWidth="32"
+     MaxWidth="32"
+     Height="15" FontSize="10" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <Button.Content>
                     <Grid>
                         <TextBlock FontFamily="{StaticResource SegoeFluentIcons}" Text="" FontSize="9" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -61,9 +61,9 @@
 
             </Button>
 
-            <Button x:Name="InsertImageButtona"  Style="{StaticResource PaintUIButtonStyle}" Click="InsertImageButton_Click" HorizontalAlignment="Stretch" Height="32" VerticalAlignment="Stretch" Margin="0,0,0,20">
+            <Button x:Name="InsertImageButtona"  Style="{StaticResource PaintUIButtonStyle}" Click="InsertImageButton_Click" HorizontalAlignment="Stretch" Height="32" VerticalAlignment="Center" >
 
-                <Grid Height="22" Width="22">
+                <Grid Height="22" Width="22" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,2">
                     <Image Width="24" Height="22" Source="{Binding Source={ThemeResource Image}}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </Grid>
                 <ToolTipService.ToolTip>
@@ -72,12 +72,12 @@
             </Button>
 
             <Button x:Name="InsertDateAndTimeButton" Style="{StaticResource PaintUIButtonStyle}"
-                     Width="32"
-                     MinWidth="32"
-                     MaxWidth="32"
-                     Height="32"
-                     Grid.Column="3" Click="InsertDateAndTimeButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0,12,0,0"
-                     >
+     Width="32"
+     MinWidth="32"
+     MaxWidth="32"
+     Height="32"
+     Grid.Column="3" Click="InsertDateAndTimeButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"
+     >
                 <Grid>
                     <Image Width="22" Height="22" Source="{Binding Source={ThemeResource Date}}" VerticalAlignment="Top" Stretch="UniformToFill" HorizontalAlignment="Center" />
                 </Grid>
@@ -87,14 +87,14 @@
             </Button>
 
             <Button x:Name="InsertObjectButton" Style="{StaticResource PaintUIButtonStyle}"
-                     Width="32"
-                     MinWidth="32"
-                     MaxWidth="32"
-                     Height="32"
-                     Grid.Column="2" Click="InsertObjectButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,12,0,0">
+     Width="32"
+     MinWidth="32"
+     MaxWidth="32"
+     Height="32"
+     Grid.Column="2" Click="InsertObjectButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button.Content>
                     <Grid>
-                        <Image Width="22" Height="22" Source="{Binding Source={ThemeResource Objects}}" VerticalAlignment="Top" Stretch="Fill" HorizontalAlignment="Center" />
+                        <Image Width="22" Height="22" Source="{Binding Source={ThemeResource Objects}}" VerticalAlignment="Center" Stretch="Fill" HorizontalAlignment="Center" />
                     </Grid>
                 </Button.Content>
                 <ToolTipService.ToolTip>
@@ -102,13 +102,13 @@
                 </ToolTipService.ToolTip>
             </Button>
             <Button x:Name="InsertPaintImageButton" Style="{StaticResource PaintUIButtonStyle}"
-                Width="32"
-                MinWidth="32"
-                MaxWidth="32"
-                Height="32"
-                Grid.Column="1" Click="InsertPaintImageButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,12,0,0">
+Width="32"
+MinWidth="32"
+MaxWidth="32"
+Height="32"
+Grid.Column="1" Click="InsertPaintImageButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid>
-                    <Image Width="22" Height="22" Source="{Binding Source={ThemeResource PaintImage}}" VerticalAlignment="Top" Stretch="Fill" HorizontalAlignment="Center" />
+                    <Image Width="22" Height="22" Source="{Binding Source={ThemeResource PaintImage}}" VerticalAlignment="Center" Stretch="Fill" HorizontalAlignment="Center" />
                 </Grid>
                 <ToolTipService.ToolTip>
                     <ToolTip Content="Paint drawing" x:Uid="TooltipPaint" />
@@ -117,10 +117,10 @@
 
 
         </Grid>
-
         <TextBlock x:Uid="insertbox"
                Style="{StaticResource ColumnDescriptionTextblockStyle}"
-               Grid.Row="1" VerticalAlignment="Bottom" />
-
-    </Grid>
+               Grid.Row="1" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>   
+     
+    
 </UserControl>

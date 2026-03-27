@@ -116,7 +116,7 @@ namespace WordPad.WordPadUI
 
         private void Border_Loaded(object sender, RoutedEventArgs e)
         {
-            shadow.Receivers.Add(test);
+            // shadow.Receivers.Add(test);
         }
     }
 }

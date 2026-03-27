@@ -14,19 +14,18 @@
 
     <Grid x:Name="ParagraphGrid" BorderBrush="{ThemeResource RibbonColumnBorder}"
       BorderThickness="0,0,0,0"
-      Padding="4"
       Grid.Column="2">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="72" />
-            <RowDefinition Height="24" />
+            <RowDefinition Height="*" MinHeight="72" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid ColumnSpacing="8">
+        <Grid ColumnSpacing="8" RowSpacing="8" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,4,0,0">
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -113,7 +112,7 @@
                     <Image Width="16" Height="16" Source="{Binding Source={ThemeResource Paragraph}}" Margin="0,2,0,-2" />
                 </Button.Content>
             </Button>
-            <muxc:ToggleSplitButton Template="{StaticResource PaintUIHorizontalToggleSplitButton}" x:Name="TextBulletingButton" Grid.Column="2" Grid.ColumnSpan="3" Width="77" Height="29" Padding="11,0,11,0"                       FontFamily="{StaticResource SegoeFluentIcons}" Content="" FontSize="20" Click="BulletButton_Click">
+            <muxc:ToggleSplitButton Template="{StaticResource PaintUIHorizontalToggleSplitButton}" x:Name="TextBulletingButton" Grid.Column="2" Grid.ColumnSpan="3" Width="77" Height="32" Padding="11,0,11,0"                       FontFamily="{StaticResource SegoeFluentIcons}" Content="" FontSize="20" Click="BulletButton_Click">
                 <ToolTipService.ToolTip>
                     <ToolTip Content="List" />
                 </ToolTipService.ToolTip>
@@ -127,7 +126,6 @@
                                     <Setter Property="MinHeight" Value="0"/>
                                     <Setter Property="Margin" Value="6"/>
                                     <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}"/>
-                                    <Setter Property="Background" Value="Transparent" />
                                 </Style>
                             </Grid.Resources>
                             <Grid.RowDefinitions>
@@ -180,7 +178,7 @@
                     </Flyout>
                 </muxc:ToggleSplitButton.Flyout>
             </muxc:ToggleSplitButton>
-            <Button x:Name="ParagraphSettingButton" Grid.Column="4" Height="29" Width="77" Margin="2,0,0,0" Style="{StaticResource PaintUIButtonStyle}" HorizontalContentAlignment="Stretch" Padding="0,0,0,0" Loaded="ParagraphSettingButton_Loaded">
+            <Button x:Name="ParagraphSettingButton" Grid.Column="4" Height="32" Width="77" Margin="2,0,0,0" Style="{StaticResource PaintUIButtonStyle}" HorizontalContentAlignment="Stretch" Padding="0,0,0,0" Loaded="ParagraphSettingButton_Loaded">
                 <Button.Content>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -220,7 +218,7 @@
                     <ToolTip Content="Increase indent (left)" />
                 </ToolTipService.ToolTip>
                 <Button.Content>
-                    <Image Width="16" Height="16" Source="{Binding Source={ThemeResource MarginL}}" />
+                    <Image Width="16" Height="16" Source="{Binding Source={ThemeResource MarginL}}" Margin="0,4,0,0" />
                 </Button.Content>
             </Button>
             <Button x:Name="IndentationIncreaseRight" Style="{StaticResource PaintUIButtonStyle}"
@@ -231,7 +229,7 @@
             Grid.Column="1"
             HorizontalAlignment="Center" Click="IndentationIncreaseRight_Click">
                 <Button.Content>
-                    <Image Width="16" Height="16" Source="{Binding Source={ThemeResource MarginR}}" />
+                    <Image Width="16" Height="16" Source="{Binding Source={ThemeResource MarginR}}" Margin="0,4,0,0" />
                 </Button.Content>
                 <ToolTipService.ToolTip>
                     <ToolTip Content="Increase indent (right)" />
@@ -242,7 +240,7 @@
 
         <TextBlock x:Uid="TitlePara"
                Style="{StaticResource ColumnDescriptionTextblockStyle}"
-               Grid.Row="1" VerticalAlignment="Bottom" />
+               Grid.Row="1" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
     </Grid>
 </UserControl>

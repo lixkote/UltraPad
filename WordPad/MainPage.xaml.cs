@@ -1516,6 +1516,20 @@ namespace RectifyPad
             }
         }
 
+        private void DisableDocTree()
+        {
+            DocTreeBorder.Visibility = Visibility.Collapsed;
+            Grid.SetColumn(EditorContentHost,0);
+            Grid.SetColumn(RulerBorder, 0);
+        }
+
+        private void EnableDocTree()
+        {
+            DocTreeBorder.Visibility = Visibility.Visible;
+            Grid.SetColumn(EditorContentHost, 1);
+            Grid.SetColumn(RulerBorder, 1);
+        }
+
         private async void SaveAsOther_Click(object sender, RoutedEventArgs e)
         {
             string fileName = AppTitle.Text.Replace(" - " + appTitleStr, "");
@@ -2018,6 +2032,18 @@ namespace RectifyPad
                 selection.Delete(Windows.UI.Text.TextRangeUnit.Character, 1);
 
                 e.Handled = true;
+            }
+        }
+
+        private void DocsTreeToggle_Click(object sender, RoutedEventArgs e)
+        {
+            if (DocsTreeToggle.IsChecked)
+            {
+                EnableDocTree();
+            }
+            else
+            {
+                DisableDocTree();
             }
         }
     }
