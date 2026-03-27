@@ -88,7 +88,7 @@
                             <ColumnDefinition Width="24"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="&#xE11A;" FontFamily="{StaticResource SegoeFluentIcons}" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                        <TextBlock Grid.Column="0" Text="&#xE11A;" FontFamily="{StaticResource SegoeFluentIcons}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,0,0,0" ></TextBlock>
                         <TextBlock Grid.Column="1" x:Uid="EditingFindBox" HorizontalAlignment="Left" Margin="5,1,0,0" TextWrapping="Wrap" FontFamily="Segoe UI Variable Display" FontSize="12" VerticalAlignment="Center"/>
                     </Grid>
                 </muxc:DropDownButton.Content>
@@ -122,7 +122,7 @@
                             <ColumnDefinition Width="24"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Width="17" Height="17" Source="{Binding Source={ThemeResource SelectAll}}" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Image Grid.Column="0" Width="17" Height="17" Source="{Binding Source={ThemeResource SelectAll}}" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,0,0,0" />
                         <TextBlock Grid.Column="1" x:Name="textBlock" x:Uid="EditingSelAllBox" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Center" FontFamily="Segoe UI Variable Display" Margin="5,1,0,0" FontSize="12"/>
                     </Grid>
                 </Button.Content>

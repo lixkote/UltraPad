@@ -846,7 +846,7 @@ VerticalAlignment="Top"
 
 
         </Grid>
-        <Border Grid.Column="0" x:Name="RulerBorder" BorderBrush="Transparent" BorderThickness="1" VerticalAlignment="Top" Height="40" Grid.Row="4" Grid.RowSpan="7" Grid.ColumnSpan="2">
+        <Border Grid.Column="0" x:Name="RulerBorder" BorderBrush="Transparent" BorderThickness="1" VerticalAlignment="Top" Height="40" Grid.Row="4" Grid.RowSpan="7" Grid.ColumnSpan="3">
             <my:TextRuler x:Name="TextRuler" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{x:Bind Mode=OneWay, Path=RulerToggle.IsChecked}"/>
         </Border>
         <Border Visibility="Collapsed" x:Name="DocTreeBorder" Grid.Row="4" Loaded="ShadowRect_Loaded" CornerRadius="10" Translation="0,0,19" Grid.Column="0" Margin="10">
@@ -858,7 +858,7 @@ VerticalAlignment="Top"
         <Grid x:Name="EditorContentHost" Margin="0,40,0,0"
              RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="RulerBorder" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"
               Grid.Row="4"
-              SizeChanged="EditorContentHost_SizeChanged" Grid.Column="0" Grid.ColumnSpan="2">
+              SizeChanged="EditorContentHost_SizeChanged" Grid.Column="0" Grid.ColumnSpan="3">
             <Grid x:Name="EditorContainer">
                 <ScrollViewer x:Name="RichTextScrollView"  HorizontalScrollBarVisibility="Visible" ZoomMode="Enabled" MinZoomFactor="0.5" MaxZoomFactor="3" VerticalAlignment="Top">
                     <Grid x:Name="EditorMandatoryPrintingGrid" Height="1116"   Width="816">
