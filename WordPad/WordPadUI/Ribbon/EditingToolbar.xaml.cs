@@ -72,13 +72,12 @@ namespace WordPad.WordPadUI.Ribbon
         {
             if (Editor != null)
             {
+                string text;
+                Editor.Document.GetText(TextGetOptions.None, out text);
                 Editor.Focus(FocusState.Programmatic);
-
-                // Get the position of the last character in the RichEditBox
                 int lastPosition = Editor.Document.Selection.EndPosition;
 
-                // Set the selection range to the entire document
-                Editor.Document.Selection.SetRange(0, lastPosition);
+                Editor.Document.Selection.SetRange(0, text.Length);
             }
         }
 

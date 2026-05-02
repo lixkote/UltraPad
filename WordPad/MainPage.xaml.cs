@@ -2254,9 +2254,15 @@ namespace RectifyPad
             {
                 if (richEditBox != null)
                 {
-                    Editor.Focus(FocusState.Programmatic);
-                    int lastPosition = Editor.Document.Selection.EndPosition;
-                    Editor.Document.Selection.SetRange(0, lastPosition);
+                    if (Editor != null)
+                    {
+                        string text;
+                        Editor.Document.GetText(TextGetOptions.None, out text);
+                        Editor.Focus(FocusState.Programmatic);
+                        int lastPosition = Editor.Document.Selection.EndPosition;
+
+                        Editor.Document.Selection.SetRange(0, text.Length);
+                    }
                     e.Handled = true;
                 }
             }
