@@ -1,55 +1,58 @@
-﻿using Microsoft.Graphics.Canvas.Text;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Windows.Foundation;
-using Windows.Storage;
-using Windows.Storage.Pickers;
-using Windows.Storage.Streams;
-using Windows.UI;
-using Windows.UI.Core.Preview;
-using Windows.UI.Text;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using WordPad.WordPadUI;
-using WordPad.Helpers;
-using Windows.Storage.Provider;
-using System.Threading.Tasks;
-using Windows.UI.ViewManagement;
-using Windows.System;
-using Windows.UI.Xaml.Media.Imaging;
-using System.Text;
-using UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding;
-using Microsoft.Toolkit.Uwp.Helpers;
-using Windows.Graphics.Printing;
-using Windows.UI.Xaml.Navigation;
-using Windows.ApplicationModel.Email;
-using WordPad.WordPadUI.Settings;
-using System.Collections.ObjectModel;
-using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Data;
-using Windows.Graphics.Display;
-using Windows.ApplicationModel.Resources.Core;
-using System.Diagnostics;
-using Windows.ApplicationModel.Core;
-using Windows.Management.Deployment;
-using static System.Net.Mime.MediaTypeNames;
-using System.IO;
-using Windows.UI.Xaml.Documents;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.Graphics.Canvas.Text;
+using Microsoft.Toolkit.Uwp.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Xml;
+using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.ApplicationModel.Email;
+using Windows.ApplicationModel.Resources.Core;
+using Windows.Foundation;
+using Windows.Graphics.Display;
+using Windows.Graphics.Printing;
+using Windows.Management.Deployment;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using Windows.Storage.Provider;
+using Windows.Storage.Streams;
+using Windows.System;
+using Windows.UI;
+using Windows.UI.Core;
+using Windows.UI.Core.Preview;
+using Windows.UI.Text;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Documents;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Navigation;
+using WordPad.Helpers;
+using WordPad.WordPadUI;
+using WordPad.WordPadUI.Settings;
+using static System.Net.Mime.MediaTypeNames;
+using Application = Windows.UI.Xaml.Application;
+using CheckBox = Windows.UI.Xaml.Controls.CheckBox;
 using Run = DocumentFormat.OpenXml.Wordprocessing.Run;
 using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
-using CheckBox = Windows.UI.Xaml.Controls.CheckBox;
-using Application = Windows.UI.Xaml.Application;
-using DocumentFormat.OpenXml.Drawing;
-using DocumentFormat.OpenXml.Bibliography;
-using System.Drawing;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.UI.Core;
-using Windows.UI.Xaml.Input;
-using Windows.ApplicationModel.DataTransfer;
+using UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding;
 
 // UltraPad made by Lixkote 
 // Main page c# source code
@@ -328,7 +331,193 @@ namespace RectifyPad
             {
                 //remove bulleted list
                 Editor.Document.Selection.ParagraphFormat.ListType = MarkerType.None;
+        
             }
+        }
+
+        string FixRtf(string rtf)
+        {
+            var output = new StringBuilder();
+
+            int i = 0;
+
+            while (i < rtf.Length)
+            {
+                int pictIndex = rtf.IndexOf(@"\pict", i);
+
+                if (pictIndex == -1)
+                {
+                    output.Append(rtf.Substring(i));
+                    break;
+                }
+
+                // append wszystko przed obrazem
+                output.Append(rtf.Substring(i, pictIndex - i));
+
+                // znajdź początek bloku {
+                int start = rtf.LastIndexOf('{', pictIndex);
+
+                if (start == -1)
+                {
+                    i = pictIndex + 5;
+                    continue;
+                }
+
+                // znajdź koniec bloku licząc klamry
+                int depth = 0;
+                int end = start;
+
+                for (; end < rtf.Length; end++)
+                {
+                    if (rtf[end] == '{') depth++;
+                    else if (rtf[end] == '}') depth--;
+
+                    if (depth == 0)
+                    {
+                        end++;
+                        break;
+                    }
+                }
+
+                string pictBlock = rtf.Substring(start, end - start);
+
+                if (pictBlock.Contains(@"\wmetafile"))
+                {
+                    output.Append(@"{\pard\plain\fs20\b [Outdated WMF image format not supported in UltraPad]\par}");
+                }
+                else if (pictBlock.Contains(@"\emfblip"))
+                {
+                    output.Append(@"{\pard\plain\fs20\b [Outdated EMF image format not supported in UltraPad]\par}");
+                }
+                else
+                {
+                    output.Append(pictBlock);
+                }
+
+                i = end;
+            }
+
+            return output.ToString();
+        }
+        string EscapeRtf(string text)
+        {
+            return text
+                .Replace(@"\", @"\\")
+                .Replace("{", @"\{")
+                .Replace("}", @"\}");
+        }
+
+        string ParseImage(XmlNode node, ZipArchive archive)
+        {
+            var href = node
+                .SelectSingleNode(".//draw:image", null)?
+                .Attributes["xlink:href"]?.Value;
+
+            if (href == null)
+                return "[image]";
+
+            var entry = archive.GetEntry(href.TrimStart('.', '/'));
+
+            if (entry == null)
+                return "[missing image]";
+
+            var stream = entry.Open();
+            var ms = new MemoryStream();
+            stream.CopyTo(ms);
+
+            var base64 = Convert.ToBase64String(ms.ToArray());
+
+            // fallback placeholder (RTF PNG)
+            return @"{\pard\plain\fs20 [Image]\par}";
+        }
+        string ParseSpan(XmlNode node, string styleName)
+        {
+            var text = EscapeRtf(node.InnerText);
+
+            bool bold = styleName?.Contains("bold") == true;
+            bool italic = styleName?.Contains("italic") == true;
+
+            var sb = new StringBuilder();
+
+            if (bold) sb.Append(@"\b ");
+            if (italic) sb.Append(@"\i ");
+
+            sb.Append(text);
+
+            if (italic) sb.Append(@"\i0 ");
+            if (bold) sb.Append(@"\b0 ");
+
+            return sb.ToString();
+        }
+        string ParseParagraph(XmlNode p, XmlNamespaceManager ns, ZipArchive archive)
+        {
+            var sb = new StringBuilder();
+
+            foreach (XmlNode node in p.ChildNodes)
+            {
+                if (node.Name == "text:span")
+                {
+                    var style = node.Attributes?["text:style-name"]?.Value;
+
+                    sb.Append(ParseSpan(node, style));
+                }
+                else if (node.Name == "#text")
+                {
+                    sb.Append(EscapeRtf(node.InnerText));
+                }
+                else if (node.Name == "draw:frame")
+                {
+                    sb.Append(ParseImage(node, archive));
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        async Task LoadOdt(string contentXml, ZipArchive archive, RichEditBox editor)
+        {
+            var doc = new XmlDocument();
+            doc.LoadXml(contentXml);
+
+            var ns = new XmlNamespaceManager(doc.NameTable);
+            ns.AddNamespace("text", "urn:oasis:names:tc:opendocument:xmlns:text:1.0");
+            ns.AddNamespace("draw", "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0");
+            ns.AddNamespace("xlink", "http://www.w3.org/1999/xlink");
+
+            var sb = new StringBuilder();
+            sb.Append(@"{\rtf1\ansi");
+
+            foreach (XmlNode p in doc.SelectNodes("//text:p", ns))
+            {
+                sb.Append(@"\par ");
+
+                sb.Append(ParseParagraph(p, ns, archive));
+            }
+
+            sb.Append("}");
+
+            editor.Document.SetText(TextSetOptions.FormatRtf, sb.ToString());
+        }
+
+        string GetOdtText(string contentXml)
+        {
+            var doc = new System.Xml.XmlDocument();
+            doc.LoadXml(contentXml);
+
+            var nsManager = new System.Xml.XmlNamespaceManager(doc.NameTable);
+            nsManager.AddNamespace("text", "urn:oasis:names:tc:opendocument:xmlns:text:1.0");
+            nsManager.AddNamespace("office", "urn:oasis:names:tc:opendocument:xmlns:office:1.0");
+
+            var nodes = doc.SelectNodes("//text:p", nsManager);
+
+            var sb = new StringBuilder();
+
+            foreach (System.Xml.XmlNode node in nodes)
+            {
+                sb.AppendLine(node.InnerText);
+            }
+
+            return sb.ToString();
         }
 
         private async void Open_Click(object sender, RoutedEventArgs e)
@@ -336,7 +525,7 @@ namespace RectifyPad
             // Open a text file.
             FileOpenPicker open = new FileOpenPicker();
             open.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-            // open.FileTypeFilter.Add(".odt");
+            open.FileTypeFilter.Add(".odt");
             // open.FileTypeFilter.Add(".docx");
             open.FileTypeFilter.Add(".rtf");
             open.FileTypeFilter.Add(".txt");
@@ -353,71 +542,106 @@ namespace RectifyPad
                 }
                 else if (fileExtension == ".rtf")
                 {
-                    using (IRandomAccessStream randAccStream = await file.OpenAsync(FileAccessMode.ReadWrite))
+                    string rtf;
+
+                    using (var stream = await file.OpenStreamForReadAsync())
+                    using (var reader = new StreamReader(stream))
                     {
-                        IBuffer buffer = await FileIO.ReadBufferAsync(file);
-                        var reader = DataReader.FromBuffer(buffer);
-                        reader.UnicodeEncoding = UnicodeEncoding.Utf8;
-                        string text = reader.ReadString(buffer.Length);
-                        // Load the file into the Document property of the RichEditBox.
-                        Editor.Document.LoadFromStream(TextSetOptions.FormatRtf, randAccStream);
+                        rtf = await reader.ReadToEndAsync();
                     }
+                    rtf = FixRtf(rtf);
+                    Editor.Document.SetText(TextSetOptions.FormatRtf, rtf);
+
+                    AppTitle.Text = file.Name + " - " + appTitleStr;
+                    fileNameWithPath = file.Path;
+
+                    Windows.Storage.AccessCache.StorageApplicationPermissions
+                        .MostRecentlyUsedList.Add(file);
+
+                    Windows.Storage.AccessCache.StorageApplicationPermissions
+                        .FutureAccessList.AddOrReplace("CurrentlyOpenFile", file);
                 }
                 else if (fileExtension == ".odt")
                 {
-                    // Handle .odt file loading
-                    using (IRandomAccessStream randAccStream = await file.OpenAsync(FileAccessMode.ReadWrite))
+                    var dialog = new ContentDialog
                     {
-                        // Read the file as a stream
-                        using (Stream stream = randAccStream.AsStreamForRead())
+                        Title = "Experimental feature",
+                        Content = "Support for .odt files is experimental.\n\n" +
+                                  "Formatting and images may not display correctly.\n" +
+                                  "The app may become unstable or crash with complex files.\n\n" +
+                                  "Please do not report crashes related to this feature.",
+                        PrimaryButtonText = "Continue",
+                        CloseButtonText = "Cancel"
+                    };
+
+                    var result = await dialog.ShowAsync();
+
+                    if (result != ContentDialogResult.Primary)
+                        return;
+
+                    using (IRandomAccessStream randAccStream = await file.OpenAsync(FileAccessMode.Read))
+                    using (Stream stream = randAccStream.AsStreamForRead())
+                    using (var archive = new ZipArchive(stream, ZipArchiveMode.Read))
+                    {
+                        var contentEntry = archive.GetEntry("content.xml");
+                        var stylesEntry = archive.GetEntry("styles.xml");
+
+                        if (contentEntry == null)
                         {
-                            // Use ZipArchive to extract ODT contents
-                            using (var archive = new System.IO.Compression.ZipArchive(stream, System.IO.Compression.ZipArchiveMode.Read))
+                            await new ContentDialog
                             {
-                                // Find the content.xml file inside the ODT archive
-                                var contentEntry = archive.GetEntry("content.xml");
-                                var stylesEntry = archive.GetEntry("styles.xml");
-                                if (contentEntry != null && stylesEntry != null)
-                                {
-                                    string contentXml, stylesXml;
-
-                                    // Read content.xml
-                                    using (var contentStream = contentEntry.Open())
-                                    using (var reader = new StreamReader(contentStream))
-                                        contentXml = await reader.ReadToEndAsync();
-
-                                    // Read styles.xml
-                                    using (var stylesStream = stylesEntry.Open())
-                                    using (var reader = new StreamReader(stylesStream))
-                                        stylesXml = await reader.ReadToEndAsync();
-
-                                    // Load the ODT content into the RichEditBox
-                                    await odtHelper.LoadOdtContentWithStyling(contentXml, stylesXml, archive, Editor);
-                                }
-                                else
-                                {
-                                    // Handle case where content.xml is missing
-                                    await new Windows.UI.Popups.MessageDialog("Invalid ODT file: content.xml not found.").ShowAsync();
-                                }
-                            }
+                                Title = "Error",
+                                Content = "Invalid .odt file: content.xml not found",
+                                CloseButtonText = "OK"
+                            }.ShowAsync();
+                            return;
                         }
+
+                        string contentXml = null;
+                        string stylesXml = null;
+
+                        using (var contentStream = contentEntry.Open())
+                        using (var reader = new StreamReader(contentStream))
+                            contentXml = await reader.ReadToEndAsync();
+
+                        if (stylesEntry != null)
+                        {
+                            using (var stylesStream = stylesEntry.Open())
+                            using (var reader = new StreamReader(stylesStream))
+                                stylesXml = await reader.ReadToEndAsync();
+                        }
+                        await LoadOdt(contentXml, archive, Editor);
                     }
                 }
                 else if (fileExtension == ".txt")
                 {
-                    using (IRandomAccessStream randAccStream = await file.OpenAsync(FileAccessMode.ReadWrite))
+                    using (IRandomAccessStream randAccStream = await file.OpenAsync(FileAccessMode.Read))
+                    using (Stream stream = randAccStream.AsStreamForRead())
                     {
-                        using (Stream stream = randAccStream.AsStreamForRead())
-                        {
-                            // Use StreamReader with the appropriate encoding (e.g., UTF-8)
-                            using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
-                            {
-                                string text = await reader.ReadToEndAsync();
+                        string text;
 
-                                // Load the file into the Document property of the RichEditBox.
-                                Editor.Document.SetText(TextSetOptions.None, text);
+                        using (StreamReader reader = new StreamReader(
+                            stream,
+                            Encoding.UTF8,
+                            detectEncodingFromByteOrderMarks: true,
+                            bufferSize: 1024,
+                            leaveOpen: true))
+                        {
+                            text = await reader.ReadToEndAsync();
+                        }
+                        if (text.Contains("�"))
+                        {
+                            stream.Position = 0;
+
+                            using (StreamReader reader = new StreamReader(
+                                stream,
+                                Encoding.GetEncoding(1250)))
+                            {
+                                text = await reader.ReadToEndAsync();
                             }
                         }
+
+                        Editor.Document.SetText(TextSetOptions.None, text);
                     }
                 }
 
