@@ -224,7 +224,7 @@ Background="Transparent" >
                     </StackPanel>
                     <StackPanel Grid.Column="2" x:Name="AboutSection" Grid.Row="2" Margin="{StaticResource ContentBottomWideSpacing}">
                         <TextBlock Style="{StaticResource SectionHeader}" x:Uid="aboutapp" Text="About UltraPad"/>
-                        <TextBlock x:Name="PackageVersionText" IsTextSelectionEnabled="True" Text="UltraPad 11.2603.270.0"/>
+                        <TextBlock x:Name="PackageVersionText" IsTextSelectionEnabled="True" Text="UltraPad 11.2605.1.0"/>
                         <TextBlock x:Uid="copyrighttext" x:Name="CopyrightText" Margin="{StaticResource ContentBottomWideSpacing}" Text="© 2026 Lixkote. All rights reserved."/>
 
                             <TextBlock x:Name="betatext" Visibility="Collapsed"  Foreground="{ThemeResource SystemErrorTextColor}" IsTextSelectionEnabled="True" Text="Debug build - errors can, and will happen!" Margin="0,0,0,10">

@@ -31,8 +31,8 @@
           <target state="new">App theme</target>
         </trans-unit>
         <trans-unit id="apptitle.Text" translate="yes" xml:space="preserve">
-          <source>Document - RectifyPad</source>
-          <target state="new">Document - RectifyPad</target>
+          <source>Document - UltraPad</source>
+          <target state="new">Document - UltraPad</target>
         </trans-unit>
         <trans-unit id="bottr.Text" translate="yes" xml:space="preserve">
           <source>Bottom:</source>
@@ -43,8 +43,8 @@
           <target state="new">Copy</target>
         </trans-unit>
         <trans-unit id="copyrighttext.Text" translate="yes" xml:space="preserve">
-          <source>© 2024 Lixkote. All rights reserved.</source>
-          <target state="new">© 2024 Lixkote. All rights reserved.</target>
+          <source>© 2026 Lixkote. All rights reserved.</source>
+          <target state="new">© 2026 Lixkote. All rights reserved.</target>
         </trans-unit>
         <trans-unit id="edit.Title" translate="yes" xml:space="preserve">
           <source>Edit</source>
@@ -440,8 +440,8 @@
           <target state="new">Tab stop position</target>
         </trans-unit>
         <trans-unit id="githubtext.Text" translate="yes" xml:space="preserve">
-          <source>To learn how you can contribute to Rectify11 and RectifyPad,  &lt;LineBreak/&gt;check out the projects on their <bpt id="1">&lt;Hyperlink NavigateUri="https://github.com/Rectify11" TextDecorations="None"&gt;</bpt> GitHub<ept id="1">&lt;/Hyperlink&gt;</ept> page</source>
-          <target state="new">To learn how you can contribute to Rectify11 and RectifyPad,  &lt;LineBreak/&gt;check out the projects on their <bpt id="1">&lt;Hyperlink NavigateUri="https://github.com/Rectify11" TextDecorations="None"&gt;</bpt> GitHub<ept id="1">&lt;/Hyperlink&gt;</ept> page</target>
+          <source>To learn how you can contribute to UltraPad,  &lt;LineBreak/&gt;check out the project on its <bpt id="1">&lt;Hyperlink NavigateUri="https://github.com/lixkote/UltraPad" TextDecorations="None"&gt;</bpt> GitHub<ept id="1">&lt;/Hyperlink&gt;</ept> page</source>
+          <target state="new">To learn how you can contribute UltraPad,  &lt;LineBreak/&gt;check out the project on its <bpt id="1">&lt;Hyperlink NavigateUri="https://github.com/lixkote/UltraPad" TextDecorations="None"&gt;</bpt> GitHub<ept id="1">&lt;/Hyperlink&gt;</ept> page</target>
         </trans-unit>
         <trans-unit id="automatical.Text" translate="yes" xml:space="preserve">
           <source>Automatical</source>

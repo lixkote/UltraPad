@@ -145,7 +145,7 @@
     <value>Kopiuj</value>
   </data>
   <data name="copyrighttext.Text" xml:space="preserve">
-    <value>© 2025 Lixkote. Wszelkie prawa zastrzeżone.</value>
+    <value>© 2026 Lixkote. Wszelkie prawa zastrzeżone.</value>
   </data>
   <data name="EditingFindBox.Text" xml:space="preserve">
     <value>Znajdź</value>
@@ -199,7 +199,7 @@
     <value>Orientacja</value>
   </data>
   <data name="packageversiontext.Text" xml:space="preserve">
-    <value>RectifyPad 11.2311.1</value>
+    <value>UltraPad 11.2311.1</value>
   </data>
   <data name="pagesetupdialog.SecondaryButtonText" xml:space="preserve">
     <value>Anuluj</value>

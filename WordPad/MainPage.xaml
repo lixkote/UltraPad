@@ -304,7 +304,7 @@
                         <MenuFlyoutItem AccessKey="D" Text="DOCX" Visibility="Collapsed" x:Uid="saveasdocx" x:Name="SaveAsDOCX"/>
                         <MenuFlyoutItem AccessKey="O" Text="ODT" Visibility="Collapsed" x:Uid="saveasodt" x:Name="SaveAsODT"/>
                         <MenuFlyoutItem AccessKey="T" Text="TXT"  x:Uid="saveastxt" x:Name="SaveAsTXT" Click="SaveAsTXT_Click"/>
-                        <MenuFlyoutItem AccessKey="F" Text="Other format" x:Uid="saveasother" x:Name="SaveAsOther" Click="SaveAsOther_Click"/>
+                        <MenuFlyoutItem AccessKey="F" Visibility="Collapsed" Text="Other format" x:Uid="saveasother" x:Name="SaveAsOther" Click="SaveAsOther_Click"/>
                     </MenuFlyoutSubItem>
                     <MenuFlyoutSeparator />
                     <MenuFlyoutSubItem x:Name="PrintSubItem" x:Uid="printmfsi" Text="Print">

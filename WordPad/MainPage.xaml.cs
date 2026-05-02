@@ -26,6 +26,7 @@ using Windows.Graphics.Display;
 using Windows.Graphics.Printing;
 using Windows.Management.Deployment;
 using Windows.Storage;
+using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
 using Windows.Storage.Provider;
 using Windows.Storage.Streams;
@@ -64,10 +65,11 @@ namespace RectifyPad
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private bool saved = true;
+        private bool _isDirty = false;
+        private string _lastSavedText = "";
+        private string _currentFilePath = null;
 
-        public bool _wasOpen = false;
-
+        private bool _initialized = false;
         public StorageFile RichEditFile;
         private string appTitleStr => "UltraPad";
 
@@ -171,7 +173,26 @@ namespace RectifyPad
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += DataTransferManager_DataRequested;
             SetLineSpacing(1, LineSpacingRule.Multiple); // Single spacing
+
+
+            ResetDirtyAfterDelay();
         }
+
+        private void MarkClean()
+        {
+            _isDirty = false;
+        }
+
+        private void Editor_TextChanged(object sender, RoutedEventArgs e)
+        {
+            _isDirty = true;
+        }
+        private async void ResetDirtyAfterDelay()
+        {
+            await Task.Delay(500);
+            _isDirty = false;
+        }
+
         public void ChangeEditorContainerTheme(bool isDarkThemeEditor)
         {
             EditorContainer.RequestedTheme = isDarkThemeEditor ? ElementTheme.Dark : ElementTheme.Light;
@@ -520,27 +541,17 @@ namespace RectifyPad
             return sb.ToString();
         }
 
-        private async void Open_Click(object sender, RoutedEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // Open a text file.
-            FileOpenPicker open = new FileOpenPicker();
-            open.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-            open.FileTypeFilter.Add(".odt");
-            // open.FileTypeFilter.Add(".docx");
-            open.FileTypeFilter.Add(".rtf");
-            open.FileTypeFilter.Add(".txt");
+            base.OnNavigatedTo(e);
 
-            StorageFile file = await open.PickSingleFileAsync();
-
-            if (file != null)
+            if (e.Parameter is StorageFile file)
             {
-                string fileExtension = file.FileType.ToLower(); // Get the file extension in lowercase
+                _currentFile = file;
 
-                if (fileExtension == ".docx")
-                {
-                    Debug.WriteLine("Not Implemented");
-                }
-                else if (fileExtension == ".rtf")
+                string ext = file.FileType.ToLower();
+
+                if (ext == ".rtf")
                 {
                     string rtf;
 
@@ -549,107 +560,163 @@ namespace RectifyPad
                     {
                         rtf = await reader.ReadToEndAsync();
                     }
+
                     rtf = FixRtf(rtf);
+
                     Editor.Document.SetText(TextSetOptions.FormatRtf, rtf);
-
-                    AppTitle.Text = file.Name + " - " + appTitleStr;
-                    fileNameWithPath = file.Path;
-
-                    Windows.Storage.AccessCache.StorageApplicationPermissions
-                        .MostRecentlyUsedList.Add(file);
-
-                    Windows.Storage.AccessCache.StorageApplicationPermissions
-                        .FutureAccessList.AddOrReplace("CurrentlyOpenFile", file);
                 }
-                else if (fileExtension == ".odt")
+
+                else if (ext == ".odt")
                 {
-                    var dialog = new ContentDialog
-                    {
-                        Title = "Experimental feature",
-                        Content = "Support for .odt files is experimental.\n\n" +
-                                  "Formatting and images may not display correctly.\n" +
-                                  "The app may become unstable or crash with complex files.\n\n" +
-                                  "Please do not report crashes related to this feature.",
-                        PrimaryButtonText = "Continue",
-                        CloseButtonText = "Cancel"
-                    };
-
-                    var result = await dialog.ShowAsync();
-
-                    if (result != ContentDialogResult.Primary)
-                        return;
-
-                    using (IRandomAccessStream randAccStream = await file.OpenAsync(FileAccessMode.Read))
-                    using (Stream stream = randAccStream.AsStreamForRead())
+                    using (var stream = await file.OpenStreamForReadAsync())
                     using (var archive = new ZipArchive(stream, ZipArchiveMode.Read))
                     {
                         var contentEntry = archive.GetEntry("content.xml");
-                        var stylesEntry = archive.GetEntry("styles.xml");
+                        if (contentEntry == null) return;
 
-                        if (contentEntry == null)
-                        {
-                            await new ContentDialog
-                            {
-                                Title = "Error",
-                                Content = "Invalid .odt file: content.xml not found",
-                                CloseButtonText = "OK"
-                            }.ShowAsync();
-                            return;
-                        }
+                        string contentXml;
 
-                        string contentXml = null;
-                        string stylesXml = null;
+                        using (var s = contentEntry.Open())
+                        using (var r = new StreamReader(s))
+                            contentXml = await r.ReadToEndAsync();
 
-                        using (var contentStream = contentEntry.Open())
-                        using (var reader = new StreamReader(contentStream))
-                            contentXml = await reader.ReadToEndAsync();
-
-                        if (stylesEntry != null)
-                        {
-                            using (var stylesStream = stylesEntry.Open())
-                            using (var reader = new StreamReader(stylesStream))
-                                stylesXml = await reader.ReadToEndAsync();
-                        }
                         await LoadOdt(contentXml, archive, Editor);
                     }
                 }
-                else if (fileExtension == ".txt")
-                {
-                    using (IRandomAccessStream randAccStream = await file.OpenAsync(FileAccessMode.Read))
-                    using (Stream stream = randAccStream.AsStreamForRead())
-                    {
-                        string text;
 
-                        using (StreamReader reader = new StreamReader(
-                            stream,
-                            Encoding.UTF8,
-                            detectEncodingFromByteOrderMarks: true,
-                            bufferSize: 1024,
-                            leaveOpen: true))
+                else if (ext == ".txt")
+                {
+                    string text;
+
+                    using (var stream = await file.OpenStreamForReadAsync())
+                    using (var reader = new StreamReader(
+                        stream,
+                        Encoding.UTF8,
+                        detectEncodingFromByteOrderMarks: true,
+                        bufferSize: 1024))
+                    {
+                        text = await reader.ReadToEndAsync();
+                    }
+
+                    if (text.Contains("�"))
+                    {
+                        using (var stream = await file.OpenStreamForReadAsync())
+                        using (var reader = new StreamReader(stream, Encoding.GetEncoding(1250)))
                         {
                             text = await reader.ReadToEndAsync();
                         }
-                        if (text.Contains("�"))
-                        {
-                            stream.Position = 0;
+                    }
 
-                            using (StreamReader reader = new StreamReader(
-                                stream,
-                                Encoding.GetEncoding(1250)))
-                            {
-                                text = await reader.ReadToEndAsync();
-                            }
-                        }
+                    Editor.Document.SetText(TextSetOptions.None, text);
+                }
 
-                        Editor.Document.SetText(TextSetOptions.None, text);
+                fileNameWithPath = file.Path;
+                AppTitle.Text = file.Name + " - " + appTitleStr;
+
+                StorageApplicationPermissions.MostRecentlyUsedList.Add(file);
+                StorageApplicationPermissions.FutureAccessList.AddOrReplace("CurrentlyOpenFile", file);
+
+                Editor.Document.GetText(TextGetOptions.None, out _lastSavedText);
+
+                ResetDirtyAfterDelay();
+            }
+        }
+
+        private async void Open_Click(object sender, RoutedEventArgs e)
+        {
+            FileOpenPicker open = new FileOpenPicker();
+            open.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            open.FileTypeFilter.Add(".odt");
+            open.FileTypeFilter.Add(".rtf");
+            open.FileTypeFilter.Add(".txt");
+
+            StorageFile file = await open.PickSingleFileAsync();
+            if (file == null) return;
+
+            _currentFile = file;
+
+            string ext = file.FileType.ToLower();
+
+            if (ext == ".rtf")
+            {
+                string rtf;
+
+                using (var stream = await file.OpenStreamForReadAsync())
+                using (var reader = new StreamReader(stream))
+                {
+                    rtf = await reader.ReadToEndAsync();
+                }
+
+                rtf = FixRtf(rtf);
+
+                Editor.Document.SetText(TextSetOptions.FormatRtf, rtf);
+            }
+
+            else if (ext == ".odt")
+            {
+                var dialog = new ContentDialog
+                {
+                    Title = "Experimental feature",
+                    Content = "Support for .odt files is experimental.\n\n" +
+                              "Formatting and images may not display correctly.\n" +
+                              "The app may become unstable with complex files.\n\n" +
+                              "Continue?",
+                    PrimaryButtonText = "Continue",
+                    CloseButtonText = "Cancel"
+                };
+
+                if (await dialog.ShowAsync() != ContentDialogResult.Primary)
+                    return;
+
+                using (var stream = await file.OpenStreamForReadAsync())
+                using (var archive = new ZipArchive(stream, ZipArchiveMode.Read))
+                {
+                    var contentEntry = archive.GetEntry("content.xml");
+                    if (contentEntry == null) return;
+
+                    string contentXml;
+
+                    using (var s = contentEntry.Open())
+                    using (var r = new StreamReader(s))
+                        contentXml = await r.ReadToEndAsync();
+
+                    await LoadOdt(contentXml, archive, Editor);
+                }
+            }
+
+            else if (ext == ".txt")
+            {
+                string text;
+
+                using (var stream = await file.OpenStreamForReadAsync())
+                using (var reader = new StreamReader(
+                    stream,
+                    Encoding.UTF8,
+                    detectEncodingFromByteOrderMarks: true,
+                    bufferSize: 1024))
+                {
+                    text = await reader.ReadToEndAsync();
+                }
+
+                if (text.Contains("�"))
+                {
+                    using (var stream = await file.OpenStreamForReadAsync())
+                    using (var reader = new StreamReader(stream, Encoding.GetEncoding(1250)))
+                    {
+                        text = await reader.ReadToEndAsync();
                     }
                 }
 
-                AppTitle.Text = file.Name + " - " + appTitleStr;
-                fileNameWithPath = file.Path;
-                Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Add(file);
-                Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.AddOrReplace("CurrentlyOpenFile", file);
+                Editor.Document.SetText(TextSetOptions.None, text);
             }
+
+            AppTitle.Text = file.Name + " - " + appTitleStr;
+            fileNameWithPath = file.Path;
+
+            StorageApplicationPermissions.MostRecentlyUsedList.Add(file);
+            StorageApplicationPermissions.FutureAccessList.AddOrReplace("CurrentlyOpenFile", file);
+            Editor.Document.GetText(TextGetOptions.None, out _lastSavedText);
+            ResetDirtyAfterDelay();
         }
 
         private void SubscriptButton_Click(object sender, RoutedEventArgs e)
@@ -819,56 +886,39 @@ namespace RectifyPad
             object value = Editor.Document.Selection.CharacterFormat.Bold = FormatEffect.Toggle;
         }
 
-        private async Task ShowUnsavedDialog()
+        private async Task<bool?> ShowUnsavedDialog()
         {
             string fileName = AppTitle.Text.Replace(" - " + appTitleStr, "");
-            ContentDialog aboutDialog = new ContentDialog()
+
+            var dialog = new ContentDialog
             {
-                Title = "Do you want to save your work?",
-                Content = "There are unsaved changes in " + '\u0022' + fileName + '\u0022',
-                CloseButtonText = "Cancel",
+                Title = "Unsaved changes",
+                Content = $"Do you want to save changes to \"{fileName}\"?",
                 PrimaryButtonText = "Save",
                 SecondaryButtonText = "Don't save",
-
-            };
-            aboutDialog.DefaultButton = ContentDialogButton.Primary;
-            ContentDialogResult result = await aboutDialog.ShowAsync();
-            if (result == ContentDialogResult.Primary)
-            {
-                SaveFile(true);
-            }
-            else if (result == ContentDialogResult.Secondary)
-            {
-                await ApplicationView.GetForCurrentView().TryConsolidateAsync();
-            }
-        }
-
-        private async Task<bool> ShowUnsavedDialogSE()
-        {
-            string fileName = AppTitle.Text.Replace(" - " + appTitleStr, "");
-            ContentDialog aboutDialog = new ContentDialog()
-            {
-                Title = "Do you want to save your work?",
-                Content = "There are unsaved changes in " + '\u0022' + fileName + '\u0022',
                 CloseButtonText = "Cancel",
-                PrimaryButtonText = "Save",
-                SecondaryButtonText = "Don't save",
+                DefaultButton = ContentDialogButton.Primary
             };
 
-            aboutDialog.DefaultButton = ContentDialogButton.Primary;
-            ContentDialogResult result = await aboutDialog.ShowAsync();
+            var result = await dialog.ShowAsync();
 
             if (result == ContentDialogResult.Primary)
             {
-                SaveFile(true);
-                return false; // Don't proceed with clearing document
-            }
-            else if (result == ContentDialogResult.Secondary)
-            {
-                return true; // Proceed with clearing document
+                await SaveFileAsync(false, "DefaultFull");
+                return true;   
             }
 
-            return false; // Cancel pressed, don't proceed
+            if (result == ContentDialogResult.Primary || fileName == "Document" || fileName == "Dokument")
+            {
+                await SaveFileAsync(true, "DefaultFull");
+                return true;
+            }
+
+
+            if (result == ContentDialogResult.Secondary)
+                return true;   
+
+            return false;     
         }
 
         private void ToggleButton_Checked_2(object sender, RoutedEventArgs e)
@@ -888,12 +938,12 @@ namespace RectifyPad
 
         private void SaveAsButton_Click(object sender, RoutedEventArgs e)
         {
-            SaveFile(true);
+            SaveFileAsync(true, "DefaultFull");
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            SaveFile(false);
+            SaveFileAsync(false, "DefaultFull");
         }
 
 
@@ -920,132 +970,90 @@ namespace RectifyPad
             }
         }
 
-        private async void SaveFile(bool isCopy)
+        private StorageFile _currentFile = null;
+
+        private async Task SaveFileAsync(bool forceSaveAs, string selectedName)
         {
-            string fileName = AppTitle.Text.Replace(" - " + appTitleStr, "");
-            if (isCopy || fileName == "Document")
+            StorageFile file = _currentFile;
+
+            if (forceSaveAs || file == null)
             {
-                FileSavePicker savePicker = new FileSavePicker();
-                savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-
-                // Dropdown of file types the user can save the file as
-                savePicker.FileTypeChoices.Add("Formatted Document  .rtf", new List<string>() { ".rtf" });
-                savePicker.FileTypeChoices.Add("Text Document  .txt", new List<string>() { ".txt" });
-                //  savePicker.FileTypeChoices.Add("OpenDocument Text   .odt", new List<string>() { ".odt" });
-                savePicker.FileTypeChoices.Add("Office Open XML Document   .docx", new List<string>() { ".docx" });
-
-                // Default file name if the user does not type one in or select a file to replace
-                savePicker.SuggestedFileName = "New Document";
-
-
-                StorageFile file = await savePicker.PickSaveFileAsync();
-                if (file != null)
+                FileSavePicker savePicker = new FileSavePicker
                 {
-                    // Prevent updates to the remote version of the file until we
-                    // finish making changes and call CompleteUpdatesAsync.
-                    CachedFileManager.DeferUpdates(file);
-                    // write to file
-                    using (Windows.Storage.Streams.IRandomAccessStream randAccStream =
-                        await file.OpenAsync(Windows.Storage.FileAccessMode.ReadWrite))
-                        switch (file.FileType)
+                    SuggestedStartLocation = PickerLocationId.DocumentsLibrary,
+                    SuggestedFileName = "New Document"
+                };
+
+                if (selectedName == "RTF")
+                {
+                    savePicker.FileTypeChoices.Add("Rich Text Format", new List<string>() { ".rtf" });
+                }
+                else if (selectedName == "TXT")
+                {
+                    savePicker.FileTypeChoices.Add("Text Document", new List<string>() { ".txt" });
+                }
+                else if (selectedName == "DefaultFull")
+                {
+                    savePicker.FileTypeChoices.Add("Rich Text Format", new List<string>() { ".rtf" });
+                    savePicker.FileTypeChoices.Add("Text Document", new List<string>() { ".txt" });
+                }
+
+                file = await savePicker.PickSaveFileAsync();
+                if (file == null) return;
+
+                _currentFile = file;
+            }
+
+            CachedFileManager.DeferUpdates(file);
+
+            using (var stream = await file.OpenAsync(FileAccessMode.ReadWrite))
+            {
+                stream.Seek(0);
+
+                switch (file.FileType)
+                {
+                    case ".txt":
+                        Editor.Document.GetText(TextGetOptions.None, out string text);
+
+                        using (var writer = new DataWriter(stream))
                         {
-                            case ".rtf":
-                                // RTF file, format for it
-                                {
-                                    Editor.Document.SaveToStream(Windows.UI.Text.TextGetOptions.FormatRtf, randAccStream);
-                                    randAccStream.Dispose();
-                                }
-                                break;
-                            case ".txt":
-                                // TXT File, save as plain text
-                                {
-                                    using (IOutputStream outputStream = randAccStream.GetOutputStreamAt(0))
-                                    {
-                                        using (DataWriter dataWriter = new DataWriter(outputStream))
-                                        {
-                                            // Get the text content from the RichEditBox
-                                            Editor.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string text);
+                            writer.UnicodeEncoding = UnicodeEncoding.Utf8;
+                            writer.WriteString(text);
 
-                                            // Write the text to the file with UTF-8 encoding
-                                            dataWriter.WriteString(text);
-                                            dataWriter.UnicodeEncoding = UnicodeEncoding.Utf8;
-
-                                            // Save the changes
-                                            await dataWriter.StoreAsync();
-                                            await outputStream.FlushAsync();
-                                        }
-                                    }
-                                }
-                                break;
-                            case ".docx":
-                                // TXT File, disable RTF formatting so that this is plain text
-                                {
-
-                                    randAccStream.Dispose();
-                                }
-                                break;
+                            await writer.StoreAsync();
+                            await writer.FlushAsync();
                         }
+                        break;
 
+                    case ".rtf":
+                        Editor.Document.SaveToStream(TextGetOptions.FormatRtf, stream);
+                        break;
 
-                    // Let Windows know that we're finished changing the file so the
-                    // other app can update the remote version of the file.
-                    FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
-                    if (status != FileUpdateStatus.Complete)
-                    {
-                        Windows.UI.Popups.MessageDialog errorBox =
-                            new Windows.UI.Popups.MessageDialog("File " + file.Name + " couldn't be saved.");
-                        await errorBox.ShowAsync();
-                    }
-                    saved = true;
-                    fileNameWithPath = file.Path;
-                    AppTitle.Text = file.Name + " - " + appTitleStr;
-                    Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Add(file);
+                    case ".docx":
+                        Editor.Document.SaveToStream(TextGetOptions.FormatRtf, stream);
+                        break;
                 }
             }
-            else if (!isCopy || fileName != "Document")
+
+            var status = await CachedFileManager.CompleteUpdatesAsync(file);
+
+            if (status != FileUpdateStatus.Complete)
             {
-                string path = fileNameWithPath.Replace("\\" + fileName, "");
-                try
+                await new ContentDialog
                 {
-                    StorageFile file = await Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.GetFileAsync("CurrentlyOpenFile");
-                    if (file != null)
-                    {
-                        // Prevent updates to the remote version of the file until we
-                        // finish making changes and call CompleteUpdatesAsync.
-                        CachedFileManager.DeferUpdates(file);
-                        // write to file
-                        using (IRandomAccessStream randAccStream = await file.OpenAsync(FileAccessMode.ReadWrite))
-                            if (file.Name.EndsWith(".txt"))
-                            {
-                                Editor.Document.SaveToStream(TextGetOptions.None, randAccStream);
-                                randAccStream.Dispose();
-                            }
-                            else
-                            {
-                                Editor.Document.SaveToStream(TextGetOptions.FormatRtf, randAccStream);
-                                randAccStream.Dispose();
-                            }
-
-
-                        // Let Windows know that we're finished changing the file so the
-                        // other app can update the remote version of the file.
-                        FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
-                        if (status != FileUpdateStatus.Complete)
-                        {
-                            Windows.UI.Popups.MessageDialog errorBox =
-                                new Windows.UI.Popups.MessageDialog("File " + file.Name + " couldn't be saved.");
-                            await errorBox.ShowAsync();
-                        }
-                        saved = true;
-                        AppTitle.Text = file.Name + " - " + appTitleStr;
-                        Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove("CurrentlyOpenFile");
-                    }
-                }
-                catch (Exception)
-                {
-                    SaveFile(true);
-                }
+                    Title = "Save failed",
+                    Content = $"File {file.Name} couldn't be saved.",
+                    CloseButtonText = "OK"
+                }.ShowAsync();
             }
+            _currentFile = file;
+            _isDirty = false;
+
+            Editor.Document.GetText(TextGetOptions.None, out _lastSavedText);
+
+            AppTitle.Text = file.Name + " - " + appTitleStr;
+
+            StorageApplicationPermissions.MostRecentlyUsedList.Add(file);
         }
 
         private void CancelColor_Click(object sender, RoutedEventArgs e)
@@ -1209,536 +1217,40 @@ namespace RectifyPad
         bool isTextChanged = false;
         private readonly bool isCopy;
 
-        private void Editor_TextChanged(object sender, RoutedEventArgs e)
-        {
-            string textStart;
-            Editor.Document.GetText(TextGetOptions.UseObjectText, out textStart);
-
-            if (textStart == "")
-            {
-                saved = true;
-            }
-            else
-            {
-                saved = false;
-            }
-        }
-
         private async void OnCloseRequest(object sender, SystemNavigationCloseRequestedPreviewEventArgs e)
         {
-            if (saved == false) { e.Handled = true; await ShowUnsavedDialog(); }
-        }
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            if (e.Parameter is StorageFile file)
+            if (_isDirty == true)
             {
-                using (IRandomAccessStream randAccStream = await file.OpenAsync(FileAccessMode.ReadWrite))
+                e.Handled = true;
+
+                var result = await ShowUnsavedDialog();
+                if (result == true)
                 {
-                    IBuffer buffer = await FileIO.ReadBufferAsync(file);
-                    var reader = DataReader.FromBuffer(buffer);
-                    reader.UnicodeEncoding = UnicodeEncoding.Utf8;
-                    string text = reader.ReadString(buffer.Length);
-                    // Load the file into the Document property of the RichEditBox.
-                    Editor.Document.LoadFromStream(TextSetOptions.FormatRtf, randAccStream);
-                    Editor.Document.GetText(TextGetOptions.UseObjectText, out originalDocText);
-                    //editor.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, text);
-                    fileNameWithPath = file.Path;
+                    ApplicationView.GetForCurrentView().TryConsolidateAsync();
                 }
-                saved = true;
-                fileNameWithPath = file.Path;
-                Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Add(file);
-                Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.AddOrReplace("CurrentlyOpenFile", file);
-                _wasOpen = true;
             }
         }
 
         private async void SaveAsRTF_Click(object sender, RoutedEventArgs e)
         {
-            string fileName = AppTitle.Text.Replace(" - " + appTitleStr, "");
-            if (isCopy || fileName == "Document")
-            {
-                FileSavePicker savePicker = new FileSavePicker();
-                savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-
-                // Dropdown of file types the user can save the file as
-                savePicker.FileTypeChoices.Add("Formatted Document", new List<string>() { ".rtf" });
-                savePicker.FileTypeChoices.Add("Text Document", new List<string>() { ".txt" });
-                savePicker.FileTypeChoices.Add("OpenDocument Text", new List<string>() { ".odt" });
-                savePicker.FileTypeChoices.Add("Office Open XML Document", new List<string>() { ".docx" });
-
-                // Default file name if the user does not type one in or select a file to replace
-                savePicker.SuggestedFileName = "New Document";
-
-
-                StorageFile file = await savePicker.PickSaveFileAsync();
-                if (file != null)
-                {
-                    // Prevent updates to the remote version of the file until we
-                    // finish making changes and call CompleteUpdatesAsync.
-                    CachedFileManager.DeferUpdates(file);
-                    // write to file
-                    using (Windows.Storage.Streams.IRandomAccessStream randAccStream =
-                        await file.OpenAsync(Windows.Storage.FileAccessMode.ReadWrite))
-                        switch (file.Name.EndsWith(".txt"))
-                        {
-                            case false:
-                                // RTF file, format for it
-                                {
-                                    Editor.Document.SaveToStream(Windows.UI.Text.TextGetOptions.FormatRtf, randAccStream);
-                                    randAccStream.Dispose();
-                                }
-                                break;
-                            case true:
-                                // TXT File, disable RTF formatting so that this is plain text
-                                {
-                                    using (IOutputStream outputStream = randAccStream.GetOutputStreamAt(0))
-                                    {
-                                        using (DataWriter dataWriter = new DataWriter(outputStream))
-                                        {
-                                            // Get the text content from the RichEditBox
-                                            Editor.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string text);
-
-                                            // Write the text to the file with UTF-8 encoding
-                                            dataWriter.WriteString(text);
-                                            dataWriter.UnicodeEncoding = UnicodeEncoding.Utf8;
-
-                                            // Save the changes
-                                            await dataWriter.StoreAsync();
-                                            await outputStream.FlushAsync();
-                                        }
-                                    }
-                                }
-                                break;
-                        }
-
-
-                    // Let Windows know that we're finished changing the file so the
-                    // other app can update the remote version of the file.
-                    FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
-                    if (status != FileUpdateStatus.Complete)
-                    {
-                        Windows.UI.Popups.MessageDialog errorBox =
-                            new Windows.UI.Popups.MessageDialog("File " + file.Name + " couldn't be saved.");
-                        await errorBox.ShowAsync();
-                    }
-                    saved = true;
-                    fileNameWithPath = file.Path;
-                    AppTitle.Text = file.Name + " - " + appTitleStr;
-                    Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Add(file);
-                }
-            }
-            else if (!isCopy || fileName != "Document")
-            {
-                string path = fileNameWithPath.Replace("\\" + fileName, "");
-                try
-                {
-                    StorageFile file = await Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.GetFileAsync("CurrentlyOpenFile");
-                    if (file != null)
-                    {
-                        // Prevent updates to the remote version of the file until we
-                        // finish making changes and call CompleteUpdatesAsync.
-                        CachedFileManager.DeferUpdates(file);
-                        // write to file
-                        using (IRandomAccessStream randAccStream = await file.OpenAsync(FileAccessMode.ReadWrite))
-                            if (file.Name.EndsWith(".txt"))
-                            {
-                                Editor.Document.SaveToStream(TextGetOptions.None, randAccStream);
-                                randAccStream.Dispose();
-                            }
-                            else
-                            {
-                                Editor.Document.SaveToStream(TextGetOptions.FormatRtf, randAccStream);
-                                randAccStream.Dispose();
-                            }
-
-
-                        // Let Windows know that we're finished changing the file so the
-                        // other app can update the remote version of the file.
-                        FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
-                        if (status != FileUpdateStatus.Complete)
-                        {
-                            Windows.UI.Popups.MessageDialog errorBox =
-                                new Windows.UI.Popups.MessageDialog("File " + file.Name + " couldn't be saved.");
-                            await errorBox.ShowAsync();
-                        }
-                        saved = true;
-                        AppTitle.Text = file.Name + " - " + appTitleStr;
-                        Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove("CurrentlyOpenFile");
-                    }
-                }
-                catch (Exception)
-                {
-                    SaveFile(true);
-                }
-
-            }
+            SaveFileAsync(true, "RTF");
         }
 
         private async void SaveAsDOCX_Click(object sender, RoutedEventArgs e)
         {
-            string fileName = AppTitle.Text.Replace(" - " + appTitleStr, "");
-            if (isCopy || fileName == "Document")
-            {
-                FileSavePicker savePicker = new FileSavePicker();
-                savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-
-                // Dropdown of file types the user can save the file as
-                savePicker.FileTypeChoices.Add("Office Open XML Document", new List<string>() { ".docx" });
-                savePicker.FileTypeChoices.Add("Formatted Document", new List<string>() { ".rtf" });
-                savePicker.FileTypeChoices.Add("Text Document", new List<string>() { ".txt" });
-                savePicker.FileTypeChoices.Add("OpenDocument Text", new List<string>() { ".odt" });
-
-                // Default file name if the user does not type one in or select a file to replace
-                savePicker.SuggestedFileName = "New Document";
-
-
-                StorageFile file = await savePicker.PickSaveFileAsync();
-                if (file != null)
-                {
-                    // Prevent updates to the remote version of the file until we
-                    // finish making changes and call CompleteUpdatesAsync.
-                    CachedFileManager.DeferUpdates(file);
-                    // write to file
-                    using (Windows.Storage.Streams.IRandomAccessStream randAccStream =
-                        await file.OpenAsync(Windows.Storage.FileAccessMode.ReadWrite))
-                        switch (file.Name.EndsWith(".txt"))
-                        {
-                            case false:
-                                // RTF file, format for it
-                                {
-                                    Editor.Document.SaveToStream(Windows.UI.Text.TextGetOptions.FormatRtf, randAccStream);
-                                    randAccStream.Dispose();
-                                }
-                                break;
-                            case true:
-                                // TXT File, disable RTF formatting so that this is plain text
-                                {
-                                    using (IOutputStream outputStream = randAccStream.GetOutputStreamAt(0))
-                                    {
-                                        using (DataWriter dataWriter = new DataWriter(outputStream))
-                                        {
-                                            // Get the text content from the RichEditBox
-                                            Editor.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string text);
-
-                                            // Write the text to the file with UTF-8 encoding
-                                            dataWriter.WriteString(text);
-                                            dataWriter.UnicodeEncoding = UnicodeEncoding.Utf8;
-
-                                            // Save the changes
-                                            await dataWriter.StoreAsync();
-                                            await outputStream.FlushAsync();
-                                        }
-                                    }
-                                }
-                                break;
-                        }
-
-
-                    // Let Windows know that we're finished changing the file so the
-                    // other app can update the remote version of the file.
-                    FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
-                    if (status != FileUpdateStatus.Complete)
-                    {
-                        Windows.UI.Popups.MessageDialog errorBox =
-                            new Windows.UI.Popups.MessageDialog("File " + file.Name + " couldn't be saved.");
-                        await errorBox.ShowAsync();
-                    }
-                    saved = true;
-                    fileNameWithPath = file.Path;
-                    AppTitle.Text = file.Name + " - " + appTitleStr;
-                    Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Add(file);
-                }
-            }
-            else if (!isCopy || fileName != "Document")
-            {
-                string path = fileNameWithPath.Replace("\\" + fileName, "");
-                try
-                {
-                    StorageFile file = await Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.GetFileAsync("CurrentlyOpenFile");
-                    if (file != null)
-                    {
-                        // Prevent updates to the remote version of the file until we
-                        // finish making changes and call CompleteUpdatesAsync.
-                        CachedFileManager.DeferUpdates(file);
-                        // write to file
-                        using (IRandomAccessStream randAccStream = await file.OpenAsync(FileAccessMode.ReadWrite))
-                            if (file.Name.EndsWith(".txt"))
-                            {
-                                Editor.Document.SaveToStream(TextGetOptions.None, randAccStream);
-                                randAccStream.Dispose();
-                            }
-                            else
-                            {
-                                Editor.Document.SaveToStream(TextGetOptions.FormatRtf, randAccStream);
-                                randAccStream.Dispose();
-                            }
-
-
-                        // Let Windows know that we're finished changing the file so the
-                        // other app can update the remote version of the file.
-                        FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
-                        if (status != FileUpdateStatus.Complete)
-                        {
-                            Windows.UI.Popups.MessageDialog errorBox =
-                                new Windows.UI.Popups.MessageDialog("File " + file.Name + " couldn't be saved.");
-                            await errorBox.ShowAsync();
-                        }
-                        saved = true;
-                        AppTitle.Text = file.Name + " - " + appTitleStr;
-                        Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove("CurrentlyOpenFile");
-                    }
-                }
-                catch (Exception)
-                {
-                    SaveFile(true);
-                }
-
-            }
+            SaveFileAsync(true, "DefaultFull");
+            // Should be changed from DefaultFull to DOCX once .docx save support is added
         }
 
         private async void SaveAsODT_Click(object sender, RoutedEventArgs e)
         {
-            string fileName = AppTitle.Text.Replace(" - " + appTitleStr, "");
-            if (isCopy || fileName == "Document")
-            {
-                FileSavePicker savePicker = new FileSavePicker();
-                savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-
-                // Dropdown of file types the user can save the file as
-                savePicker.FileTypeChoices.Add("OpenDocument Text", new List<string>() { ".odt" });
-                savePicker.FileTypeChoices.Add("Formatted Document", new List<string>() { ".rtf" });
-                savePicker.FileTypeChoices.Add("Text Document", new List<string>() { ".txt" });
-                savePicker.FileTypeChoices.Add("Office Open XML Document", new List<string>() { ".docx" });
-
-                // Default file name if the user does not type one in or select a file to replace
-                savePicker.SuggestedFileName = "New Document";
-
-
-                StorageFile file = await savePicker.PickSaveFileAsync();
-                if (file != null)
-                {
-                    // Prevent updates to the remote version of the file until we
-                    // finish making changes and call CompleteUpdatesAsync.
-                    CachedFileManager.DeferUpdates(file);
-                    // write to file
-                    using (Windows.Storage.Streams.IRandomAccessStream randAccStream =
-                        await file.OpenAsync(Windows.Storage.FileAccessMode.ReadWrite))
-                        switch (file.Name.EndsWith(".txt"))
-                        {
-                            case false:
-                                // RTF file, format for it
-                                {
-                                    Editor.Document.SaveToStream(Windows.UI.Text.TextGetOptions.FormatRtf, randAccStream);
-                                    randAccStream.Dispose();
-                                }
-                                break;
-                            case true:
-                                // TXT File, disable RTF formatting so that this is plain text
-                                {
-                                    using (IOutputStream outputStream = randAccStream.GetOutputStreamAt(0))
-                                    {
-                                        using (DataWriter dataWriter = new DataWriter(outputStream))
-                                        {
-                                            // Get the text content from the RichEditBox
-                                            Editor.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string text);
-
-                                            // Write the text to the file with UTF-8 encoding
-                                            dataWriter.WriteString(text);
-                                            dataWriter.UnicodeEncoding = UnicodeEncoding.Utf8;
-
-                                            // Save the changes
-                                            await dataWriter.StoreAsync();
-                                            await outputStream.FlushAsync();
-                                        }
-                                    }
-                                }
-                                break;
-                        }
-
-
-                    // Let Windows know that we're finished changing the file so the
-                    // other app can update the remote version of the file.
-                    FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
-                    if (status != FileUpdateStatus.Complete)
-                    {
-                        Windows.UI.Popups.MessageDialog errorBox =
-                            new Windows.UI.Popups.MessageDialog("File " + file.Name + " couldn't be saved.");
-                        await errorBox.ShowAsync();
-                    }
-                    saved = true;
-                    fileNameWithPath = file.Path;
-                    AppTitle.Text = file.Name + " - " + appTitleStr;
-                    Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Add(file);
-                }
-            }
-            else if (!isCopy || fileName != "Document")
-            {
-                string path = fileNameWithPath.Replace("\\" + fileName, "");
-                try
-                {
-                    StorageFile file = await Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.GetFileAsync("CurrentlyOpenFile");
-                    if (file != null)
-                    {
-                        // Prevent updates to the remote version of the file until we
-                        // finish making changes and call CompleteUpdatesAsync.
-                        CachedFileManager.DeferUpdates(file);
-                        // write to file
-                        using (IRandomAccessStream randAccStream = await file.OpenAsync(FileAccessMode.ReadWrite))
-                            if (file.Name.EndsWith(".txt"))
-                            {
-                                Editor.Document.SaveToStream(TextGetOptions.None, randAccStream);
-                                randAccStream.Dispose();
-                            }
-                            else
-                            {
-                                Editor.Document.SaveToStream(TextGetOptions.FormatRtf, randAccStream);
-                                randAccStream.Dispose();
-                            }
-
-
-                        // Let Windows know that we're finished changing the file so the
-                        // other app can update the remote version of the file.
-                        FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
-                        if (status != FileUpdateStatus.Complete)
-                        {
-                            Windows.UI.Popups.MessageDialog errorBox =
-                                new Windows.UI.Popups.MessageDialog("File " + file.Name + " couldn't be saved.");
-                            await errorBox.ShowAsync();
-                        }
-                        saved = true;
-                        AppTitle.Text = file.Name + " - " + appTitleStr;
-                        Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove("CurrentlyOpenFile");
-                    }
-                }
-                catch (Exception)
-                {
-                    SaveFile(true);
-                }
-
-            }
+            SaveFileAsync(true, "DefaultFull");
+            // Should be changed from DefaultFull to ODT once .odt save support is added
         }
 
         private async void SaveAsTXT_Click(object sender, RoutedEventArgs e)
         {
-            string fileName = AppTitle.Text.Replace(" - " + appTitleStr, "");
-            if (isCopy || fileName == "Document")
-            {
-                FileSavePicker savePicker = new FileSavePicker();
-                savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-
-                // Dropdown of file types the user can save the file as
-                savePicker.FileTypeChoices.Add("Text Document", new List<string>() { ".txt" });
-                savePicker.FileTypeChoices.Add("Formatted Document", new List<string>() { ".rtf" });
-                savePicker.FileTypeChoices.Add("OpenDocument Text", new List<string>() { ".odt" });
-                savePicker.FileTypeChoices.Add("Office Open XML Document", new List<string>() { ".docx" });
-
-                // Default file name if the user does not type one in or select a file to replace
-                savePicker.SuggestedFileName = "New Document";
-
-
-                StorageFile file = await savePicker.PickSaveFileAsync();
-                if (file != null)
-                {
-                    // Prevent updates to the remote version of the file until we
-                    // finish making changes and call CompleteUpdatesAsync.
-                    CachedFileManager.DeferUpdates(file);
-                    // write to file
-                    using (Windows.Storage.Streams.IRandomAccessStream randAccStream =
-                        await file.OpenAsync(Windows.Storage.FileAccessMode.ReadWrite))
-                        switch (file.Name.EndsWith(".txt"))
-                        {
-                            case false:
-                                // RTF file, format for it
-                                {
-                                    Editor.Document.SaveToStream(Windows.UI.Text.TextGetOptions.FormatRtf, randAccStream);
-                                    randAccStream.Dispose();
-                                }
-                                break;
-                            case true:
-                                // TXT File, disable RTF formatting so that this is plain text
-                                {
-                                    using (IOutputStream outputStream = randAccStream.GetOutputStreamAt(0))
-                                    {
-                                        using (DataWriter dataWriter = new DataWriter(outputStream))
-                                        {
-                                            // Get the text content from the RichEditBox
-                                            Editor.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string text);
-
-                                            // Write the text to the file with UTF-8 encoding
-                                            dataWriter.WriteString(text);
-                                            dataWriter.UnicodeEncoding = UnicodeEncoding.Utf8;
-
-                                            // Save the changes
-                                            await dataWriter.StoreAsync();
-                                            await outputStream.FlushAsync();
-                                        }
-                                    }
-                                }
-                                break;
-                        }
-
-
-                    // Let Windows know that we're finished changing the file so the
-                    // other app can update the remote version of the file.
-                    FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
-                    if (status != FileUpdateStatus.Complete)
-                    {
-                        Windows.UI.Popups.MessageDialog errorBox =
-                            new Windows.UI.Popups.MessageDialog("File " + file.Name + " couldn't be saved.");
-                        await errorBox.ShowAsync();
-                    }
-                    saved = true;
-                    fileNameWithPath = file.Path;
-                    AppTitle.Text = file.Name + " - " + appTitleStr;
-                    Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Add(file);
-                }
-            }
-            else if (!isCopy || fileName != "Document")
-            {
-                string path = fileNameWithPath.Replace("\\" + fileName, "");
-                try
-                {
-                    StorageFile file = await Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.GetFileAsync("CurrentlyOpenFile");
-                    if (file != null)
-                    {
-                        // Prevent updates to the remote version of the file until we
-                        // finish making changes and call CompleteUpdatesAsync.
-                        CachedFileManager.DeferUpdates(file);
-                        // write to file
-                        using (IRandomAccessStream randAccStream = await file.OpenAsync(FileAccessMode.ReadWrite))
-                            if (file.Name.EndsWith(".txt"))
-                            {
-                                Editor.Document.SaveToStream(TextGetOptions.None, randAccStream);
-                                randAccStream.Dispose();
-                            }
-                            else
-                            {
-                                Editor.Document.SaveToStream(TextGetOptions.FormatRtf, randAccStream);
-                                randAccStream.Dispose();
-                            }
-
-
-                        // Let Windows know that we're finished changing the file so the
-                        // other app can update the remote version of the file.
-                        FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
-                        if (status != FileUpdateStatus.Complete)
-                        {
-                            Windows.UI.Popups.MessageDialog errorBox =
-                                new Windows.UI.Popups.MessageDialog("File " + file.Name + " couldn't be saved.");
-                            await errorBox.ShowAsync();
-                        }
-                        saved = true;
-                        AppTitle.Text = file.Name + " - " + appTitleStr;
-                        Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove("CurrentlyOpenFile");
-                    }
-                }
-                catch (Exception)
-                {
-                    SaveFile(true);
-                }
-
-            }
+            SaveFileAsync(true, "TXT");
         }
 
         private void DisableDocTree()
@@ -1757,138 +1269,21 @@ namespace RectifyPad
 
         private async void SaveAsOther_Click(object sender, RoutedEventArgs e)
         {
-            string fileName = AppTitle.Text.Replace(" - " + appTitleStr, "");
-            if (isCopy || fileName == "Document")
-            {
-                FileSavePicker savePicker = new FileSavePicker();
-                savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-
-                // Dropdown of file types the user can save the file as
-
-                savePicker.FileTypeChoices.Add("Formatted Document", new List<string>() { ".rtf" });
-                savePicker.FileTypeChoices.Add("Text Document", new List<string>() { ".txt" });
-                // savePicker.FileTypeChoices.Add("OpenDocument Text", new List<string>() { ".odt" });
-                // savePicker.FileTypeChoices.Add("Office Open XML Document", new List<string>() { ".docx" });
-
-                // Default file name if the user does not type one in or select a file to replace
-                savePicker.SuggestedFileName = "New Document";
-
-
-                StorageFile file = await savePicker.PickSaveFileAsync();
-                if (file != null)
-                {
-                    // Prevent updates to the remote version of the file until we
-                    // finish making changes and call CompleteUpdatesAsync.
-                    CachedFileManager.DeferUpdates(file);
-                    // write to file
-                    using (Windows.Storage.Streams.IRandomAccessStream randAccStream =
-                        await file.OpenAsync(Windows.Storage.FileAccessMode.ReadWrite))
-                        switch (file.Name.EndsWith(".txt"))
-                        {
-                            case false:
-                                // RTF file, format for it
-                                {
-                                    Editor.Document.SaveToStream(Windows.UI.Text.TextGetOptions.FormatRtf, randAccStream);
-                                    randAccStream.Dispose();
-                                }
-                                break;
-                            case true:
-                                // TXT File, disable RTF formatting so that this is plain text
-                                {
-                                    using (IOutputStream outputStream = randAccStream.GetOutputStreamAt(0))
-                                    {
-                                        using (DataWriter dataWriter = new DataWriter(outputStream))
-                                        {
-                                            // Get the text content from the RichEditBox
-                                            Editor.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string text);
-
-                                            // Write the text to the file with UTF-8 encoding
-                                            dataWriter.WriteString(text);
-                                            dataWriter.UnicodeEncoding = UnicodeEncoding.Utf8;
-
-                                            // Save the changes
-                                            await dataWriter.StoreAsync();
-                                            await outputStream.FlushAsync();
-                                        }
-                                    }
-                                }
-                                break;
-                        }
-
-
-                    // Let Windows know that we're finished changing the file so the
-                    // other app can update the remote version of the file.
-                    FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
-                    if (status != FileUpdateStatus.Complete)
-                    {
-                        Windows.UI.Popups.MessageDialog errorBox =
-                            new Windows.UI.Popups.MessageDialog("File " + file.Name + " couldn't be saved.");
-                        await errorBox.ShowAsync();
-                    }
-                    saved = true;
-                    fileNameWithPath = file.Path;
-                    AppTitle.Text = file.Name + " - " + appTitleStr;
-                    Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Add(file);
-                }
-            }
-            else if (!isCopy || fileName != "Document")
-            {
-                string path = fileNameWithPath.Replace("\\" + fileName, "");
-                try
-                {
-                    StorageFile file = await Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.GetFileAsync("CurrentlyOpenFile");
-                    if (file != null)
-                    {
-                        // Prevent updates to the remote version of the file until we
-                        // finish making changes and call CompleteUpdatesAsync.
-                        CachedFileManager.DeferUpdates(file);
-                        // write to file
-                        using (IRandomAccessStream randAccStream = await file.OpenAsync(FileAccessMode.ReadWrite))
-                            if (file.Name.EndsWith(".txt"))
-                            {
-                                Editor.Document.SaveToStream(TextGetOptions.None, randAccStream);
-                                randAccStream.Dispose();
-                            }
-                            else
-                            {
-                                Editor.Document.SaveToStream(TextGetOptions.FormatRtf, randAccStream);
-                                randAccStream.Dispose();
-                            }
-
-
-                        // Let Windows know that we're finished changing the file so the
-                        // other app can update the remote version of the file.
-                        FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
-                        if (status != FileUpdateStatus.Complete)
-                        {
-                            Windows.UI.Popups.MessageDialog errorBox =
-                                new Windows.UI.Popups.MessageDialog("File " + file.Name + " couldn't be saved.");
-                            await errorBox.ShowAsync();
-                        }
-                        saved = true;
-                        AppTitle.Text = file.Name + " - " + appTitleStr;
-                        Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove("CurrentlyOpenFile");
-                    }
-                }
-                catch (Exception)
-                {
-                    SaveFile(true);
-                }
-
-            }
-
-
-
+            SaveFileAsync(true, "DefaultFull");
         }
 
         private async void NewDoc_Click(object sender, RoutedEventArgs e)
         {
-            bool proceed = await ShowUnsavedDialogSE(); // Ensure this returns a bool indicating user choice
-
-            if (proceed)
+            if (_isDirty)
             {
-                Editor.Document.SetText(Windows.UI.Text.TextSetOptions.None, string.Empty); // Clear content
+                var proceed = await ShowUnsavedDialog();
+                if (proceed != true)
+                    return;
             }
+
+            Editor.Document.SetText(TextSetOptions.None, string.Empty);
+            _currentFilePath = null;
+            MarkClean();
         }
 
         private async void SendButton_Click(object sender, RoutedEventArgs e)
@@ -1950,6 +1345,7 @@ namespace RectifyPad
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             baseRulerWidth = TextRuler.ActualWidth;
+            _isDirty = false;
         }
 
         private void SetParagraphIndents(float leftIndent, float rightIndent, float firstLineIndent, bool applyToSelectionOnly = true)

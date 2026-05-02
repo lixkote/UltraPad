@@ -136,7 +136,7 @@
     <value>App theme</value>
   </data>
   <data name="apptitle.Text" xml:space="preserve">
-    <value>Document - RectifyPad</value>
+    <value>Document - UltraPad</value>
   </data>
   <data name="bottr.Text" xml:space="preserve">
     <value>Bottom:</value>
@@ -145,7 +145,7 @@
     <value>Copy</value>
   </data>
   <data name="copyrighttext.Text" xml:space="preserve">
-    <value>© 2025 Lixkote. All rights reserved.</value>
+    <value>© 2026 Lixkote. All rights reserved.</value>
   </data>
   <data name="EditingFindBox.Text" xml:space="preserve">
     <value>Find</value>
@@ -199,7 +199,7 @@
     <value>Orientation</value>
   </data>
   <data name="packageversiontext.Text" xml:space="preserve">
-    <value>RectifyPad 11.2311.1</value>
+    <value>UltraPad 11.2311.1</value>
   </data>
   <data name="pagesetupdialog.SecondaryButtonText" xml:space="preserve">
     <value>Cancel</value>
@@ -458,7 +458,7 @@
     <value>Margins (points)</value>
   </data>
   <data name="githubtext.Text" xml:space="preserve">
-    <value>To learn how you can contribute to Rectify11 and RectifyPad,  &lt;LineBreak/&gt;check out the projects on their &lt;Hyperlink NavigateUri="https://github.com/Rectify11" TextDecorations="None"&gt; GitHub&lt;/Hyperlink&gt; page</value>
+    <value>To learn how you can contribute to Rectify11 and UltraPad,  &lt;LineBreak/&gt;check out the projects on their &lt;Hyperlink NavigateUri="https://github.com/Rectify11" TextDecorations="None"&gt; GitHub&lt;/Hyperlink&gt; page</value>
   </data>
   <data name="MenuResizePicture.Text" xml:space="preserve">
     <value>Resize picture</value>
@@ -473,10 +473,7 @@
     <value>Donate</value>
   </data>
   <data name="wordwrap.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="cut.Text" xml:space="preserve">
-    <value>Cut</value>
+    <value>Word wrap</value>
   </data>
   <data name="indentation.Text" xml:space="preserve">
     <value>Indentation</value>
@@ -486,5 +483,8 @@
   </data>
   <data name="paragr.Text" xml:space="preserve">
     <value>Paragraph</value>
+  </data>
+  <data name="cut.Text" xml:space="preserve">
+    <value>Cut</value>
   </data>
 </root>
