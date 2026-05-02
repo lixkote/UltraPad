@@ -318,7 +318,7 @@
                             </MenuFlyoutItem.KeyboardAccelerators>
                         </MenuFlyoutItem>
                         <MenuFlyoutItem x:Name="QuickPrint" Text="Quick print" x:Uid="qprint" Click="QuickPrint_Click"/>
-                        <MenuFlyoutItem Text="Print preview" x:Name="pintpreview" x:Uid="printpreview" Click="pintpreview_Click"/>
+                        <MenuFlyoutItem Text="Print preview" Visibility="Collapsed" x:Name="pintpreview" x:Uid="printpreview" Click="pintpreview_Click"/>
                     </MenuFlyoutSubItem>
                     <MenuFlyoutItem Text="Page setup" x:Uid="pgset" x:Name="PageSetupMenuItem" Click="PageSetupMenuItem_Click">
                         <MenuFlyoutItem.Icon>
