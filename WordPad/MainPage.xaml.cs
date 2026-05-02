@@ -902,21 +902,26 @@ namespace RectifyPad
 
             var result = await dialog.ShowAsync();
 
-            if (result == ContentDialogResult.Primary)
+
+
+
+            if (result == ContentDialogResult.Secondary)
+                return true;
+            else if(result == ContentDialogResult.Primary)
             {
                 await SaveFileAsync(false, "DefaultFull");
                 return true;   
             }
-
-            if (result == ContentDialogResult.Primary || fileName == "Document" || fileName == "Dokument")
+            else if (result == ContentDialogResult.Primary && fileName == "Document")
             {
                 await SaveFileAsync(true, "DefaultFull");
                 return true;
             }
-
-
-            if (result == ContentDialogResult.Secondary)
-                return true;   
+            else if (result == ContentDialogResult.Primary && fileName == "Dokument")
+            {
+                await SaveFileAsync(true, "DefaultFull");
+                return true;
+            }
 
             return false;     
         }

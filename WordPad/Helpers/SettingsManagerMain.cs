@@ -43,6 +43,7 @@ namespace WordPad.Helpers
                 // Set the settings values to the default ones
                 Windows.Storage.ApplicationData.Current.LocalSettings.Values["unit"] = "inches";
                 Windows.Storage.ApplicationData.Current.LocalSettings.Values["theme"] = "System";
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values["IsDarkThemeEditor"] = false;
                 Windows.Storage.ApplicationData.Current.LocalSettings.Values["fontfamily"] = "Calibri";
                 Windows.Storage.ApplicationData.Current.LocalSettings.Values["fontsize"] = "11";
                 Windows.Storage.ApplicationData.Current.LocalSettings.Values["papersize"] = "A4";
