@@ -34,7 +34,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" x:Name="AppTitleBar"
 Background="Transparent" >
@@ -55,7 +55,7 @@ Background="Transparent" >
          VerticalAlignment="Center"
          Grid.Column="3" Text="Document - UltraPad"/>
     </Grid>
-        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Auto" VerticalScrollMode="Auto">
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Auto" VerticalScrollMode="Enabled">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualStateGroup.States>
@@ -85,8 +85,9 @@ Background="Transparent" >
                 <Grid.Children>
                     
                     <TextBlock Grid.Row="0" x:Uid="settings" Style="{StaticResource PageHeader}" Text="Settings" Margin="0,2,0,24.2"   />
-                    <StackPanel Grid.Row="2" Margin="{StaticResource ContentBottomWideSpacing}">
-                        <TextBlock x:Uid="appearance" x:Name="appe" Style="{StaticResource SectionHeader}" Text="Appearance" Margin="0,10,0,10" />
+                        <StackPanel Grid.Row="2" Margin="{StaticResource ContentBottomWideSpacing}">
+
+                            <TextBlock x:Uid="appearance" x:Name="appe" Style="{StaticResource SectionHeader}" Text="Appearance" Margin="0,10,0,10" />
                         <muxc:Expander
                         x:Name="Theme"
                         Visibility="Collapsed"
