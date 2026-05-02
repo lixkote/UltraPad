@@ -114,7 +114,7 @@ Background="Transparent" >
                                 <RadioButton x:Name="SysRadio" x:Uid="sysradio" GroupName="t" Margin="{StaticResource ContentBottomNormalSpacing}" Content="System theme" Tag="System" Checked="RadioButton_Checked"/>
                             </muxc:RadioButtons>
                         </muxc:Expander>
-                            <Grid CornerRadius="4" Background="{StaticResource ExpanderHeaderBackground}" BorderThickness="1" BorderBrush="{StaticResource ExpanderHeaderBorderBrush}" Height="60" Margin="0,5,0,0">
+                            <Grid CornerRadius="4" Background="{StaticResource ExpanderHeaderBackground}" BorderThickness="1" BorderBrush="{StaticResource ExpanderHeaderBorderBrush}" MinHeight="60" Margin="0,5,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="49"/>
                                     <ColumnDefinition Width="200"/>
@@ -123,8 +123,8 @@ Background="Transparent" >
                                 </Grid.ColumnDefinitions>
                                 <FontIcon x:Name="EditorDarkIcon" VerticalAlignment="Center" Glyph="" Height="20"  />
                                 <StackPanel Grid.Column="1"  VerticalAlignment="Center" Grid.ColumnSpan="2">
-                                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}" x:Uid="darkeditor" Text="Editor dark mode" />
-                                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" x:Uid="darkeditortext" FontWeight="SemiLight" Text="Printing is not possible with this setting turned on." TextWrapping="WrapWholeWords" />
+                                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}" x:Uid="darkeditor" Margin="0,3,0,0" Text="Editor dark mode" />
+                                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" x:Uid="darkeditortext" FontWeight="SemiLight" Text="Printing is not possible with this setting turned on." Margin="0,3,0,3" TextWrapping="WrapWholeWords" />
                                 </StackPanel>
                                 <ToggleSwitch x:Name="EditorDarkModeToggle" Toggled="EditorDarkModeToggle_Toggled" Grid.Column="3" Height="40" Width="154"></ToggleSwitch>
                             </Grid>
@@ -207,7 +207,7 @@ Background="Transparent" >
                             </StackPanel>
                             <ToggleSwitch x:Name="SpellCheckToggle" Toggled="SpellCheckToggle_Toggled" Grid.Column="3" Height="40" Width="154" HorizontalAlignment="Left"></ToggleSwitch>
                         </Grid>
-                        <Grid CornerRadius="4" Background="{StaticResource ExpanderHeaderBackground}" BorderThickness="1" BorderBrush="{StaticResource ExpanderHeaderBorderBrush}" Height="60" Margin="0,5,0,0">
+                        <Grid CornerRadius="4" Background="{StaticResource ExpanderHeaderBackground}" BorderThickness="1" BorderBrush="{StaticResource ExpanderHeaderBorderBrush}" MinHeight="60" Margin="0,5,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="49"/>
                                 <ColumnDefinition Width="77"/>
@@ -216,8 +216,8 @@ Background="Transparent" >
                             </Grid.ColumnDefinitions>
                             <FontIcon x:Name="AurocorrectIcon" FontFamily="/Assets/Segoe Fluent Icons.ttf#Segoe Fluent Icons" VerticalAlignment="Center" Glyph="" Height="20"  />
                             <StackPanel Grid.Column="1"  VerticalAlignment="Center" Grid.ColumnSpan="2">
-                                <TextBlock Style="{ThemeResource BodyTextBlockStyle}" x:Uid="autocorrect" Text="Aurocorrect" />
-                                <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" x:Uid="autocorrecttext" FontWeight="SemiLight" Text="Typos are automatically corrected when spell check is turned on" TextWrapping="WrapWholeWords" />
+                                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Margin="0,3,0,0" x:Uid="autocorrect" Text="Aurocorrect" />
+                                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" x:Uid="autocorrecttext" Margin="0,3,0,3" FontWeight="SemiLight" Text="Typos are automatically corrected when spell check is turned on" TextWrapping="WrapWholeWords" />
                             </StackPanel>
                             <ToggleSwitch x:Name="AutocorrectToggle" Toggled="AutocorrectToggle_Toggled" Grid.Column="3" Height="40" Width="154"></ToggleSwitch>
                         </Grid>
