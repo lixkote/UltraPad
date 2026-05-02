@@ -1889,7 +1889,7 @@ namespace RectifyPad
 
         private void Editor_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            RulerBorder.Width = Editor.Width;
+            // RulerBorder.Width = Editor.Width;
         }
 
         private async void PrintPreviewPrintButton_Click(object sender, RoutedEventArgs e)
