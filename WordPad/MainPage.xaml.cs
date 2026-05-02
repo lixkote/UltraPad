@@ -75,6 +75,8 @@ namespace RectifyPad
 
         private string fileNameWithPath = "";
 
+        private double baseRulerWidth;
+
         string originalDocText = "";
 
         UnitManager unitConverter = new UnitManager();
@@ -543,7 +545,6 @@ namespace RectifyPad
 
         private void ZoomSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
-            // Animate the zoom factor from the old value to the new value
             AnimateZoomSecond(e.OldValue, e.NewValue);
         }
 
@@ -1679,19 +1680,19 @@ namespace RectifyPad
 
         private void DecreaseZoomButton_Click(object sender, RoutedEventArgs e)
         {
-            // Decrease the zoom by 10%, but don't go below the minimum value of the slider
             ZoomSlider.Value = Math.Max(ZoomSlider.Value - 0.1, ZoomSlider.Minimum);
         }
 
         private void IncreaseZoomButton_Click(object sender, RoutedEventArgs e)
         {
-            // Increase the zoom by 10%, but don't exceed the maximum value of the slider
             ZoomSlider.Value = Math.Min(ZoomSlider.Value + 0.1, ZoomSlider.Maximum);
         }
 
         private void AnimateZoomSecond(double fromValue, double toValue)
         {
             RichTextScrollView.ChangeView(0, 0, (float)ZoomSlider.Value);
+            float zoom = (float)ZoomSlider.Value;
+            TextRuler.Width = 814 * zoom;
         }
 
         private void MenuCut_Click(object sender, RoutedEventArgs e)
@@ -1720,6 +1721,11 @@ namespace RectifyPad
             ITextRange Range = RichEditor.Document.GetRange(0, Text.Length);
             Range.GetText(TextGetOptions.FormatRtf, out string Value);
             return Value;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            baseRulerWidth = TextRuler.ActualWidth;
         }
 
         private void SetParagraphIndents(float leftIndent, float rightIndent, float firstLineIndent, bool applyToSelectionOnly = true)

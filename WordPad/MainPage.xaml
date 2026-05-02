@@ -847,7 +847,13 @@ VerticalAlignment="Top"
 
         </Grid>
         <Border Grid.Column="0" x:Name="RulerBorder" BorderBrush="Transparent" BorderThickness="1" VerticalAlignment="Top" Height="40" Grid.Row="4" Grid.RowSpan="7" Grid.ColumnSpan="3">
-            <my:TextRuler x:Name="TextRuler" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{x:Bind Mode=OneWay, Path=RulerToggle.IsChecked}"/>
+            <my:TextRuler x:Name="TextRuler" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{x:Bind Mode=OneWay, Path=RulerToggle.IsChecked}">
+            </my:TextRuler>
+            <Border.RenderTransform>
+                <ScaleTransform x:Name="RulerScaleTransform"
+                        ScaleX="1"
+                        ScaleY="1"/>
+            </Border.RenderTransform>
         </Border>
         <Border Visibility="Collapsed" x:Name="DocTreeBorder" Grid.Row="4" Loaded="ShadowRect_Loaded" CornerRadius="10" Translation="0,0,19" Grid.Column="0" Margin="10">
             <Border.Shadow>
