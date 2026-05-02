@@ -1892,6 +1892,20 @@ namespace RectifyPad
             // RulerBorder.Width = Editor.Width;
         }
 
+        private void SelectWord(RichEditBox box, bool forward)
+        {
+            var selection = box.Document.Selection;
+
+            if (forward)
+            {
+                selection.MoveEnd(TextRangeUnit.Word, 1);
+            }
+            else
+            {
+                selection.MoveStart(TextRangeUnit.Word, -1);
+            }
+        }
+
         private async void PrintPreviewPrintButton_Click(object sender, RoutedEventArgs e)
         {
             Editor.RequestedTheme = ElementTheme.Light;
@@ -2000,9 +2014,12 @@ namespace RectifyPad
 
         private void Editor_KeyDown_1(object sender, KeyRoutedEventArgs e)
         {
+            RichEditBox richEditBox = sender as RichEditBox;
+            bool ctrl = Window.Current.CoreWindow.GetKeyState(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down);
+            bool shift = Window.Current.CoreWindow.GetKeyState(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down);
+            
             if (e.Key == VirtualKey.Tab)
             {
-                RichEditBox richEditBox = sender as RichEditBox;
                 if (richEditBox != null)
                 {
                     richEditBox.Document.Selection.TypeText("\t");
@@ -2011,7 +2028,6 @@ namespace RectifyPad
             }
             else if (e.Key == VirtualKey.A && (Window.Current.CoreWindow.GetKeyState(VirtualKey.Control) & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down)
             {
-                RichEditBox richEditBox = sender as RichEditBox;
                 if (richEditBox != null)
                 {
                     Editor.Focus(FocusState.Programmatic);
@@ -2038,6 +2054,20 @@ namespace RectifyPad
                 selection.Delete(Windows.UI.Text.TextRangeUnit.Character, 1);
 
                 e.Handled = true;
+            }
+
+            if (ctrl && shift)
+            {
+                if (e.Key == VirtualKey.Left)
+                {
+                    SelectWord(richEditBox, false);
+                    e.Handled = true;
+                }
+                else if (e.Key == VirtualKey.Right)
+                {
+                    SelectWord(richEditBox, true);
+                    e.Handled = true;
+                }
             }
         }
 
