@@ -20,8 +20,8 @@ else{
 
     if (!$PackageCertificate)
     {
-    	throw "Usigned package"
-    	exit -1
+        throw "Unsigned package"
+        exit -1
     }
 
     $enableSideLoad = (test-path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock) -and ((get-item HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock).Property.Count -ne 0)
@@ -47,14 +47,33 @@ else{
         $AdminProcess = Start-Process "powershell.exe" -Verb RunAs -WorkingDirectory $PSScriptRoot -ArgumentList $RelaunchArgs -Wait
     }
 
-    $DependencyPackages = Get-ChildItem (Join-Path (Join-Path $PSScriptRoot "Dependencies") "*.msixbundle")
-    
-    if ($DependencyPackages.Count -gt 0)
-    {
-    	Add-AppxPackage -Path "$PSScriptRoot\$packageName.msixbundle" -DependencyPath $DependencyPackages.FullName -ForceApplicationShutdown -Verbose
+    $DependencyPackages = Get-ChildItem (Join-Path $PSScriptRoot "Dependencies") -Filter "*.appx"
+    $DependenciesToInstall = @()
+
+    foreach ($dep in $DependencyPackages) {
+        try {
+            $manifest = (Get-AppxPackageManifest -Path $dep.FullName)
+            $name = $manifest.Package.Identity.Name
+            $version = [version]$manifest.Package.Identity.Version
+
+            $installed = Get-AppxPackage -Name $name -ErrorAction SilentlyContinue
+
+            if ($installed) {
+                $installedVersion = [version]$installed.Version
+                if ($installedVersion -ge $version) {
+                    continue
+                }
+            }
+
+            $DependenciesToInstall += $dep.FullName
+        }
+        catch {
+            $DependenciesToInstall += $dep.FullName
+        }
     }
-    else
-    {
-    	Add-AppxPackage -Path "$PSScriptRoot\$packageName.msixbundle" -ForceApplicationShutdown -Verbose
-    }
+
+    Add-AppxPackage -Path "$PSScriptRoot\$packageName.msixbundle" `
+        -DependencyPath $DependenciesToInstall `
+        -ForceApplicationShutdown `
+        -Verbose
 }

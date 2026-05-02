@@ -1,39 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Product Id="*" UpgradeCode="7b0af2d8-d27b-4a07-9be5-88185a9153be"
-           Name="RectifyPad" Version="11.2408.30" Manufacturer="Lixkote" Language="1033">
-    <Package InstallerVersion="200" Compressed="yes" Comments="Windows Installer Package" Platform="x64"/>
+           Name="UltraPad" Version="26.05.01" Manufacturer="Lixkote" Language="1033">
+    <Package InstallerVersion="200" Compressed="yes" Comments="UltraPad is a rich text editor application that is a modern alternative to WordPad" Platform="x64"/>
     <Media Id="1" Cabinet="product.cab" EmbedCab="yes"/>
 
     <Directory Id="TARGETDIR" Name="SourceDir">
-      <Directory Id="ProgramFilesFolder">
-        <Directory Id="INSTALLDIR" Name="RectifyPad">
-          <Component Id="ApplicationFiles" Guid="a2a84f6a-2654-4ace-aefd-55387c5cb015">
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLDIR" Name="UltraPad">
+          <Component  Win64="yes" Id="ApplicationFiles" Guid="a2a84f6a-2654-4ace-aefd-55387c5cb015">
             <File Id="InstallUntrustedAppx.ps1" Source="Install-UntrustedAppx.ps1"/>
             <File Id="UninstallUntrustedAppx.ps1" Source="Uninstall-UntrustedAppx.ps1"/>
-            <File Id="WordPad_11.2311.2.0_x86_x64_arm64.msixbundle" Source="WordPad_11.2311.2.0_x86_x64_arm64.msixbundle"/>
-            <File Id="WordPad_11.2311.2.0_x86_x64_arm64.cer" Source="WordPad_11.2311.2.0_x86_x64_arm64.cer"/>
+            <File Id="WordPadApp_11.2605.1.0_x64.msixbundle" Source="WordPadApp_11.2605.1.0_x64.msixbundle"/>
+            <File Id="WordPadApp_11.2605.1.0_x64.cer" Source="WordPadApp_11.2605.1.0_x64.cer"/>
           </Component>
           <Directory Id="DependencyDir" Name="Dependencies">
-            <Component Id="DependencyFiles" Guid="2b6515e9-5b3a-4789-b1f0-cb44d29ab987">
-              <File Id="Microsoft.NET.Native.Framework.1.2.appx" Source="Dependencies/Microsoft.NET.Native.Framework.1.2.appx"/>
-              <File Id="Microsoft.NET.Native.Runtime.1.1.appx" Source="Dependencies/Microsoft.NET.Native.Runtime.1.1.appx"/>
+            <Component  Win64="yes" Id="DependencyFiles" Guid="2b6515e9-5b3a-4789-b1f0-cb44d29ab987">
+              <File Id="Microsoft.NET.Native.Framework.2.2.appx" Source="Dependencies/Microsoft.NET.Native.Framework.2.2.appx"/>
+              <File Id="Microsoft.NET.Native.Runtime.2.2.appx" Source="Dependencies/Microsoft.NET.Native.Runtime.2.2.appx"/>
+              <File Id="Microsoft.UI.Xaml.2.8.appx" Source="Dependencies/Microsoft.UI.Xaml.2.8.appx"/>
               <File Id="Microsoft.VCLibs.x64.14.00.appx" Source="Dependencies/Microsoft.VCLibs.x64.14.00.appx"/>
+              <File Id="Microsoft.VCLibs.x64.14.00.Desktop.appx" Source="Dependencies/Microsoft.VCLibs.x64.14.00.Desktop.appx"/>
             </Component>
           </Directory>
         </Directory>
       </Directory>
     </Directory>
+	
+	<Condition Message="This application requires a 64-bit version of Windows.">
+		VersionNT64
+	</Condition>
 
     <Feature Id="DefaultFeature" Level="1">
       <ComponentRef Id="ApplicationFiles"/>
       <ComponentRef Id="DependencyFiles"/>
     </Feature>
 
-    <SetProperty Id="InstallAppx" Before="InstallFiles" Sequence="execute" Value ="&quot;C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe&quot; -ExecutionPolicy Bypass -File &quot;[INSTALLDIR]Install-UntrustedAppx.ps1&quot; WordPad_11.2311.2.0_x86_x64_arm64" />
+    <SetProperty Id="InstallAppx" Before="InstallFiles" Sequence="execute" Value ="&quot;C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe&quot; -ExecutionPolicy Bypass -File &quot;[INSTALLDIR]Install-UntrustedAppx.ps1&quot; WordPadApp_11.2605.1.0_x64" />
     <CustomAction Id="InstallAppx" BinaryKey="WixCA" DllEntry="WixQuietExec64" Execute="deferred" Return="check" Impersonate="yes" />
 
-    <SetProperty Id="UninstallAppx" Before="InstallFiles" Sequence="execute" Value ="&quot;powershell.exe&quot; -ExecutionPolicy Bypass -File &quot;[INSTALLDIR]Uninstall-UntrustedAppx.ps1&quot; WordPad_11.2311.2.0_x86_x64_arm64" />
+    <SetProperty Id="UninstallAppx" Before="InstallFiles" Sequence="execute" Value ="&quot;powershell.exe&quot; -ExecutionPolicy Bypass -File &quot;[INSTALLDIR]Uninstall-UntrustedAppx.ps1&quot; WordPadApp_11.2605.1.0_x64" />
     <CustomAction Id="UninstallAppx" BinaryKey="WixCA" DllEntry="WixQuietExec64" Execute="deferred" Return="check" Impersonate="yes" />
 
     <InstallExecuteSequence>

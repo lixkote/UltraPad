@@ -14,8 +14,8 @@
 
   <Identity
     Name="UltraPad"
-    Publisher="CN=lixkote"
-    Version="11.2311.2.0" />
+    Publisher="CN=Lixkote"
+    Version="11.2605.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="b36d39c6-c6c9-49b7-8519-9919bf164161" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -44,7 +44,7 @@
         DisplayName="UltraPad"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="UltraPad is a rich text editor processor application that is meant to be fully compatible with WordPad. It&apos;s also designed to be a modern alternative to WordPad, which was discontinued by Microsoft in Windows 11."
+        Description="UltraPad is a rich text editor processor application that is designed to be a modern alternative to WordPad, which was discontinued by Microsoft in Windows 11 24H2."
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
 		<uap:SplashScreen Image="Assets\splashw.png" />
