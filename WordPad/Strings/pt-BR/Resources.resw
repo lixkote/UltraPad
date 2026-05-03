@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="aboutapp.Text" xml:space="preserve">
+    <value>Sobre este aplicativo</value>
+  </data>
+  <data name="addspace.Content" xml:space="preserve">
+    <value>Adicionar espaço de 10 pt após parágrafos</value>
+  </data>
+  <data name="align.Text" xml:space="preserve">
+    <value>Alinhar</value>
+  </data>
+  <data name="alignm.Text" xml:space="preserve">
+    <value>Alinhamento:</value>
+  </data>
+  <data name="appearance.Text" xml:space="preserve">
+    <value>Aparência</value>
+  </data>
+  <data name="apptheme.Text" xml:space="preserve">
+    <value>Tema do aplicativo</value>
+  </data>
+  <data name="apptitle.Text" xml:space="preserve">
+    <value>Documento - UltraPad</value>
+  </data>
+  <data name="bottr.Text" xml:space="preserve">
+    <value>Inferior:</value>
+  </data>
+  <data name="copy.Text" xml:space="preserve">
+    <value>Copiar</value>
+  </data>
+  <data name="copyrighttext.Text" xml:space="preserve">
+    <value>© 2026 Lixkote. Todos os direitos reservados.</value>
+  </data>
+  <data name="EditingFindBox.Text" xml:space="preserve">
+    <value>Localizar</value>
+  </data>
+  <data name="EditingReplaceBox.Text" xml:space="preserve">
+    <value>Substituir Tudo</value>
+  </data>
+  <data name="EditingSelAllBox.Text" xml:space="preserve">
+    <value>Selecionar Tudo</value>
+  </data>
+  <data name="EditingText.Text" xml:space="preserve">
+    <value>Edição</value>
+  </data>
+  <data name="feedback.Content" xml:space="preserve">
+    <value>Enviar comentários</value>
+  </data>
+  <data name="filemenuitem.Title" xml:space="preserve">
+    <value>Arquivo</value>
+  </data>
+  <data name="fli.Text" xml:space="preserve">
+    <value>Primeira linha:</value>
+  </data>
+  <data name="FontToolbarTitle.Text" xml:space="preserve">
+    <value>Fonte</value>
+  </data>
+  <data name="insertbox.Text" xml:space="preserve">
+    <value>Inserir</value>
+  </data>
+  <data name="InsertObjectDialog.Title" xml:space="preserve">
+    <value>Inserir um objeto</value>
+  </data>
+  <data name="lefti.Text" xml:space="preserve">
+    <value>Esquerda:</value>
+  </data>
+  <data name="lefttr.Text" xml:space="preserve">
+    <value>Esquerda:</value>
+  </data>
+  <data name="linespacing.Text" xml:space="preserve">
+    <value>Espaçamento entre linhas:</value>
+  </data>
+  <data name="marginsnametr.Text" xml:space="preserve">
+    <value>Margens (unitplaceholder)</value>
+  </data>
+  <data name="new.Text" xml:space="preserve">
+    <value>Novo</value>
+  </data>
+  <data name="openmenuitem.Text" xml:space="preserve">
+    <value>Abrir</value>
+  </data>
+  <data name="orientation.Text" xml:space="preserve">
+    <value>Orientação</value>
+  </data>
+  <data name="packageversiontext.Text" xml:space="preserve">
+    <value>UltraPad 11.2311.1</value>
+  </data>
+  <data name="pagesetupdialog.SecondaryButtonText" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="pagesetupdialog.Title" xml:space="preserve">
+    <value>Configurar página</value>
+  </data>
+  <data name="paintpicture.Content" xml:space="preserve">
+    <value>Desenhar uma imagem</value>
+  </data>
+  <data name="paper.Text" xml:space="preserve">
+    <value>Papel</value>
+  </data>
+  <data name="paradialog.CloseButtonText" xml:space="preserve">
+    <value>Fechar</value>
+  </data>
+  <data name="paradialog.PrimaryButtonText" xml:space="preserve">
+    <value>Tabulações...</value>
+  </data>
+  <data name="paradialog.SecondaryButtonText" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="paradialog.Title" xml:space="preserve">
+    <value>Parágrafo</value>
+  </data>
+  <data name="paste.Text" xml:space="preserve">
+    <value>Colar</value>
+  </data>
+  <data name="pgset.Text" xml:space="preserve">
+    <value>Configurar página</value>
+  </data>
+  <data name="printmfsi.Text" xml:space="preserve">
+    <value>Imprimir</value>
+  </data>
+  <data name="printpageTR.Content" xml:space="preserve">
+    <value>Imprimir números de página</value>
+  </data>
+  <data name="recentmenuitem.Text" xml:space="preserve">
+    <value>Recentes</value>
+  </data>
+  <data name="righti.Text" xml:space="preserve">
+    <value>Direita:</value>
+  </data>
+  <data name="righttr.Text" xml:space="preserve">
+    <value>Direita:</value>
+  </data>
+  <data name="ruler.Text" xml:space="preserve">
+    <value>Régua</value>
+  </data>
+  <data name="saveasmenuitem.Text" xml:space="preserve">
+    <value>Salvar como</value>
+  </data>
+  <data name="savemenuitem.Text" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="selappthem.Text" xml:space="preserve">
+    <value>Selecione qual tema do aplicativo exibir</value>
+  </data>
+  <data name="settings.Text" xml:space="preserve">
+    <value>Configurações</value>
+  </data>
+  <data name="size.Text" xml:space="preserve">
+    <value>Tamanho</value>
+  </data>
+  <data name="spacing.Text" xml:space="preserve">
+    <value>Espaçamento</value>
+  </data>
+  <data name="srccode.Text" xml:space="preserve">
+    <value>Código-fonte</value>
+  </data>
+  <data name="statusbar.Text" xml:space="preserve">
+    <value>Barra de status</value>
+  </data>
+  <data name="tableitemtr.Content" xml:space="preserve">
+    <value>Inserir uma tabela</value>
+  </data>
+  <data name="TooltipDateTime.Content" xml:space="preserve">
+    <value>Data e hora</value>
+  </data>
+  <data name="TooltipObject.Content" xml:space="preserve">
+    <value>Inserir objeto</value>
+  </data>
+  <data name="TooltipPaint.Content" xml:space="preserve">
+    <value>Desenho do Paint</value>
+  </data>
+  <data name="TooltipPicture.Content" xml:space="preserve">
+    <value>Imagem</value>
+  </data>
+  <data name="toptr.Text" xml:space="preserve">
+    <value>Superior:</value>
+  </data>
+  <data name="view.Title" xml:space="preserve">
+    <value>Exibir</value>
+  </data>
+  <data name="edit.Title" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="TitlePara.Text" xml:space="preserve">
+    <value>Parágrafo</value>
+  </data>
+  <data name="landscape.Content" xml:space="preserve">
+    <value>Paisagem</value>
+  </data>
+  <data name="portrait.Content" xml:space="preserve">
+    <value>Retrato</value>
+  </data>
+  <data name="printpreview.Text" xml:space="preserve">
+    <value>Visualização de impressão</value>
+  </data>
+  <data name="qprint.Text" xml:space="preserve">
+    <value>Impressão rápida</value>
+  </data>
+  <data name="redobuttontoolbar.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Refazer (Ctrl+Y)</value>
+  </data>
+  <data name="saveasdocx.Text" xml:space="preserve">
+    <value>Documento Office Open XML</value>
+  </data>
+  <data name="saveasrtf.Text" xml:space="preserve">
+    <value>Documento Rich Text</value>
+    <comment>Save the document in the Rich Text Format</comment>
+  </data>
+  <data name="savebutton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Salvar (Ctrl+S)</value>
+  </data>
+  <data name="sharebuttonmenu.Text" xml:space="preserve">
+    <value>Compartilhar</value>
+  </data>
+  <data name="sharebuttontoolbar.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Compartilhar</value>
+  </data>
+  <data name="toolbarsetbutton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Configurações</value>
+  </data>
+  <data name="undobuttontoolbar.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Desfazer (Ctrl+Z)</value>
+  </data>
+  <data name="saveasodt.Text" xml:space="preserve">
+    <value>Texto OpenDocument</value>
+  </data>
+  <data name="saveastxt.Text" xml:space="preserve">
+    <value>Documento de texto sem formatação</value>
+  </data>
+  <data name="saveasother.Text" xml:space="preserve">
+    <value>Outros formatos</value>
+  </data>
+  <data name="closebuttonmenu.Text" xml:space="preserve">
+    <value>Fechar</value>
+  </data>
+  <data name="autocorrect.Text" xml:space="preserve">
+    <value>Autocorreção</value>
+  </data>
+  <data name="autocorrecttext.Text" xml:space="preserve">
+    <value>Erros de digitação são corrigidos automaticamente quando a verificação ortográfica está ativada</value>
+  </data>
+  <data name="spellcheckset.Text" xml:space="preserve">
+    <value>Verificação ortográfica</value>
+  </data>
+  <data name="darkeditor.Text" xml:space="preserve">
+    <value>Modo escuro do editor</value>
+  </data>
+  <data name="darkeditortext.Text" xml:space="preserve">
+    <value>Recurso experimental - habilita o modo escuro na seção do editor. Não é possível imprimir com esta opção ativada.</value>
+  </data>
+  <data name="spell.Text" xml:space="preserve">
+    <value>Ortografia</value>
+  </data>
+  <data name="measurement.Text" xml:space="preserve">
+    <value>Unidade de medida</value>
+  </data>
+  <data name="words.Text" xml:space="preserve">
+    <value>Palavras</value>
+  </data>
+  <data name="measurementunits.Text" xml:space="preserve">
+    <value>Unidades de medida</value>
+  </data>
+  <data name="sysradio.Content" xml:space="preserve">
+    <value>Tema do sistema</value>
+  </data>
+  <data name="lightradio.Content" xml:space="preserve">
+    <value>Claro</value>
+  </data>
+  <data name="darkradio.Content" xml:space="preserve">
+    <value>Escuro</value>
+  </data>
+  <data name="measurementunitstext.Text" xml:space="preserve">
+    <value>Selecione as unidades de medida para a régua e a configuração de página.</value>
+  </data>
+  <data name="inches.Content" xml:space="preserve">
+    <value>Polegadas</value>
+  </data>
+  <data name="centimeters.Content" xml:space="preserve">
+    <value>Centímetros</value>
+  </data>
+  <data name="points.Content" xml:space="preserve">
+    <value>Pontos</value>
+  </data>
+  <data name="picas.Content" xml:space="preserve">
+    <value>Paicas</value>
+  </data>
+  <data name="wrapruler.Content" xml:space="preserve">
+    <value>Quebrar conforme régua</value>
+  </data>
+  <data name="nowrap.Content" xml:space="preserve">
+    <value>Sem quebra</value>
+  </data>
+  <data name="wrapwindow.Content" xml:space="preserve">
+    <value>Quebrar conforme janela</value>
+  </data>
+  <data name="wordwraptext.Text" xml:space="preserve">
+    <value>Selecione uma opção de quebra de linha para alterar a forma como o texto é exibido na tela. Isso não afetará a aparência do documento ao imprimir.</value>
+  </data>
+  <data name="notimplement1.Text" xml:space="preserve">
+    <value>Este recurso ainda não está disponível.</value>
+  </data>
+  <data name="notimplement2.Text" xml:space="preserve">
+    <value>Se desejar, você pode ajudar a implementá-lo fazendo um pull request no GitHub.</value>
+  </data>
+  <data name="notimplementdialog.Title" xml:space="preserve">
+    <value>🚫 Desculpe, ainda não podemos fazer isso</value>
+  </data>
+  <data name="tabsclear.Content" xml:space="preserve">
+    <value>Limpar</value>
+  </data>
+  <data name="tabsclearall.Content" xml:space="preserve">
+    <value>Limpar tudo</value>
+  </data>
+  <data name="tabsdialog.CloseButtonText" xml:space="preserve">
+    <value>Fechar</value>
+  </data>
+  <data name="tabsdialog.Title" xml:space="preserve">
+    <value>Tabulações</value>
+  </data>
+  <data name="tabsset.Content" xml:space="preserve">
+    <value>Definir</value>
+  </data>
+  <data name="tabstopposition.Text" xml:space="preserve">
+    <value>Posição da parada de tabulação</value>
+  </data>
+  <data name="automatical.Text" xml:space="preserve">
+    <value>Automático</value>
+  </data>
+  <data name="morecolors.Text" xml:space="preserve">
+    <value>Mais cores...</value>
+  </data>
+  <data name="marginsnamecm.Text" xml:space="preserve">
+    <value>Margens (centímetros)</value>
+  </data>
+  <data name="marginsnameinch.Text" xml:space="preserve">
+    <value>Margens (polegadas)</value>
+  </data>
+  <data name="marginsnamepicas.Text" xml:space="preserve">
+    <value>Margens (paicas)</value>
+  </data>
+  <data name="marginsnamept.Text" xml:space="preserve">
+    <value>Margens (pontos)</value>
+  </data>
+  <data name="githubtext.Text" xml:space="preserve">
+    <value>Para saber como contribuir com o Rectify11 e o UltraPad,  &lt;LineBreak/&gt;confira os projetos na página do &lt;Hyperlink NavigateUri="https://github.com/Rectify11" TextDecorations="None"&gt; GitHub&lt;/Hyperlink&gt;</value>
+  </data>
+  <data name="MenuResizePicture.Text" xml:space="preserve">
+    <value>Redimensionar imagem</value>
+  </data>
+  <data name="MenuChangePicture.Text" xml:space="preserve">
+    <value>Alterar imagem</value>
+  </data>
+  <data name="menupicture.Text" xml:space="preserve">
+    <value>Imagem</value>
+  </data>
+  <data name="donatebutton.Content" xml:space="preserve">
+    <value>Doar</value>
+  </data>
+  <data name="wordwrap.Text" xml:space="preserve">
+    <value>Quebra de linha</value>
+  </data>
+  <data name="indentation.Text" xml:space="preserve">
+    <value>Recuo</value>
+  </data>
+  <data name="lists.Text" xml:space="preserve">
+    <value>Listas</value>
+  </data>
+  <data name="paragr.Text" xml:space="preserve">
+    <value>Parágrafo</value>
+  </data>
+  <data name="cut.Text" xml:space="preserve">
+    <value>Recortar</value>
+  </data>
+</root>
