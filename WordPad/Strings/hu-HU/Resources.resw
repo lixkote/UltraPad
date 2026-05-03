@@ -136,7 +136,7 @@
     <value>Alkalmazás téma</value>
   </data>
   <data name="apptitle.Text" xml:space="preserve">
-    <value>Dokumentum - RectifyPad</value>
+    <value>Dokumentum - UltraPad</value>
   </data>
   <data name="bottr.Text" xml:space="preserve">
     <value>Alsó rész:</value>
@@ -145,10 +145,7 @@
     <value>Másolás</value>
   </data>
   <data name="copyrighttext.Text" xml:space="preserve">
-    <value>© 2024 Lixkote. Minden jog fenntartva.</value>
-  </data>
-  <data name="edit.Title" xml:space="preserve">
-    <value>Szerkesztés</value>
+    <value>© 2026 Lixkote. Minden jog fenntartva.</value>
   </data>
   <data name="EditingFindBox.Text" xml:space="preserve">
     <value>Keresés</value>
@@ -180,9 +177,6 @@
   <data name="InsertObjectDialog.Title" xml:space="preserve">
     <value>Tárgy beszúrása</value>
   </data>
-  <data name="landscape.Content" xml:space="preserve">
-    <value>Fekvő elrendezés</value>
-  </data>
   <data name="lefti.Text" xml:space="preserve">
     <value>Bal:</value>
   </data>
@@ -205,7 +199,7 @@
     <value>Elrendezés</value>
   </data>
   <data name="packageversiontext.Text" xml:space="preserve">
-    <value>RectifyPad 11.2311.1</value>
+    <value>UltraPad 11.2311.1</value>
   </data>
   <data name="pagesetupdialog.SecondaryButtonText" xml:space="preserve">
     <value>Mégse</value>
@@ -236,9 +230,6 @@
   </data>
   <data name="pgset.Text" xml:space="preserve">
     <value>Oldalbeállítás</value>
-  </data>
-  <data name="portrait.Content" xml:space="preserve">
-    <value>Álló elrendezés</value>
   </data>
   <data name="printmfsi.Text" xml:space="preserve">
     <value>Nyomtatás</value>
@@ -285,9 +276,6 @@
   <data name="tableitemtr.Content" xml:space="preserve">
     <value>Táblázat beszúrása</value>
   </data>
-  <data name="TitlePara.Text" xml:space="preserve">
-    <value>Bekezdés</value>
-  </data>
   <data name="TooltipDateTime.Content" xml:space="preserve">
     <value>Dátum és idő</value>
   </data>
@@ -305,5 +293,47 @@
   </data>
   <data name="view.Title" xml:space="preserve">
     <value>Nézet</value>
+  </data>
+  <data name="edit.Title" xml:space="preserve">
+    <value>Szerkesztés</value>
+  </data>
+  <data name="TitlePara.Text" xml:space="preserve">
+    <value>Bekezdés</value>
+  </data>
+  <data name="landscape.Content" xml:space="preserve">
+    <value>Fekvő elrendezés</value>
+  </data>
+  <data name="portrait.Content" xml:space="preserve">
+    <value>Álló elrendezés</value>
+  </data>
+  <data name="closebuttonmenu.Text" xml:space="preserve">
+    <value>Közeli</value>
+  </data>
+  <data name="autocorrect.Text" xml:space="preserve">
+    <value>Automatikus javítás</value>
+  </data>
+  <data name="autocorrecttext.Text" xml:space="preserve">
+    <value>A helyesírás-ellenőrzés bekapcsolásakor a gépelési hibák automatikusan kijavításra kerülnek.</value>
+  </data>
+  <data name="darkeditor.Text" xml:space="preserve">
+    <value>Szerkesztő sötét módja</value>
+  </data>
+  <data name="darkeditortext.Text" xml:space="preserve">
+    <value>Kísérleti funkció – Engedélyezi a sötét módot a szerkesztő részben. A nyomtatás nem lehetséges, ha ez a beállítás be van kapcsolva.</value>
+  </data>
+  <data name="darkradio.Content" xml:space="preserve">
+    <value>Sötét</value>
+  </data>
+  <data name="centimeters.Content" xml:space="preserve">
+    <value>Centiméter</value>
+  </data>
+  <data name="automatical.Text" xml:space="preserve">
+    <value>Automatikus</value>
+  </data>
+  <data name="donatebutton.Content" xml:space="preserve">
+    <value>Adományoz</value>
+  </data>
+  <data name="cut.Text" xml:space="preserve">
+    <value>Vágott</value>
   </data>
 </root>

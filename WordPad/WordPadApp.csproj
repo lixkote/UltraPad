@@ -441,6 +441,9 @@
     </PRIResource>
     <PRIResource Include="Strings\pl-PL\Resources.resw" />
     <PRIResource Include="Strings\qps-ploc\Resources.resw" />
+	<PRIResource Include="Strings\hu-HU\Resources.resw" />
+    <PRIResource Include="Strings\pt-BR\Resources.resw" />
+	<PRIResource Include="Strings\tr-TR\Resources.resw" />
     <Content Include="Assets\Segoe Fluent Icons.ttf" />
     <None Include="WordPadApp_TemporaryKey.pfx" />
     <None Include="WordPad_TemporaryKey.pfx" />
