@@ -440,7 +440,6 @@
       <SubType>Designer</SubType>
     </PRIResource>
     <PRIResource Include="Strings\pl-PL\Resources.resw" />
-    <PRIResource Include="Strings\pt-BR\Resources.resw" />
     <PRIResource Include="Strings\qps-ploc\Resources.resw" />
     <Content Include="Assets\Segoe Fluent Icons.ttf" />
     <None Include="WordPadApp_TemporaryKey.pfx" />
@@ -448,9 +447,6 @@
   </ItemGroup>
   <ItemGroup>
     <XliffResource Include="MultilingualResources\WordPad.pl-PL.xlf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </XliffResource>
-    <XliffResource Include="MultilingualResources\WordPad.pt-BR.xlf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </XliffResource>
     <XliffResource Include="MultilingualResources\WordPad.qps-ploc.xlf" />
