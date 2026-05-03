@@ -33,7 +33,9 @@
     <Resource Language="x-generate"/>
 	<Resource Language="en-US"/>
 	<Resource Language="pl-PL"/>
-	<Resource Language="pl"/> 
+	<Resource Language="pl"/>
+	<Resource Language="pt-BR"/>
+	<Resource Language="pt"/>
   </Resources>
 
   <Applications>
