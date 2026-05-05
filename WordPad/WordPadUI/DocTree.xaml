@@ -7,6 +7,34 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" >
+    <UserControl.Resources>
+        <DataTemplate x:Key="FileListViewTemplate" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="FileIcon"
+                    Grid.RowSpan="2"
+                    Width ="24"
+                    Height="24"
+                    FontFamily="/Assets/Segoe Fluent Icons.ttf#Segoe Fluent Icons"
+                    Margin="6"
+                    Text=""
+                           FontSize="200"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center" />
+                <TextBlock Grid.Column="1"
+                    Text="Jebac disa.txt"
+                    Style="{ThemeResource BaseTextBlockStyle}"
+                    Margin="12,0,0,0"/>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid Background="{ThemeResource LayerFillColorDefaultBrush}"
               BorderBrush="{ThemeResource CardStrokeColorDefaultSolidBrush}" BorderThickness="1" CornerRadius="8" Height="Auto">
         <Grid.RowDefinitions>
@@ -23,5 +51,14 @@
                 <TextBlock FontSize="12" FontFamily="Segoe UI"  Grid.Column="2" Text="Pick source folder" VerticalAlignment="Center"/>
             </Grid>
         </Button>
+        <ListView SelectionMode="Single" ItemTemplate="{StaticResource FileListViewTemplate}" Grid.Row="2">
+            <ListViewItem>test1.txt</ListViewItem>
+            <ListViewItem>lixkote.txt</ListViewItem>
+            <ListViewItem>example.rtf</ListViewItem>
+            <ListViewItem>ultrapad.docx</ListViewItem>
+            <ListViewItem>README.md</ListViewItem>
+        </ListView>
+       
+        
     </Grid>
 </UserControl>
